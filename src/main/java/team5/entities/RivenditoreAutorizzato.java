@@ -12,9 +12,7 @@ import java.util.UUID;
 @Entity
 @Table (name = "rivenditori autorizzati")
 public class RivenditoreAutorizzato extends Rivenditore{
-    @Id
-    @GeneratedValue
-    private UUID id_rivenditoreautorizato;
+
    private LocalTime orarioApertura;
    private LocalTime orearioChiusura;
    private int numeroTelefono;
@@ -38,9 +36,6 @@ public RivenditoreAutorizzato(){}
         this.numeroTelefono = numeroTelefono;
     }
 
-    public UUID getId_rivenditoreautorizato() {
-        return id_rivenditoreautorizato;
-    }
 
 
 
@@ -64,7 +59,6 @@ public RivenditoreAutorizzato(){}
     @Override
     public String toString() {
         return "RivenditoreAutorizzato{" +
-                "id_rivenditoreautorizato=" + id_rivenditoreautorizato +
                 ", orarioApertura=" + orarioApertura +
                 ", orearioChiusura=" + orearioChiusura +
                 '}';

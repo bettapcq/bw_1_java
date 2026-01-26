@@ -7,9 +7,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "distributori automatici ")
 public class DistributtoreAutomatico extends Rivenditore{
-    @Id
-    @GeneratedValue
-    private UUID id_distributoreautomatico;
+
     @Enumerated(EnumType.STRING)
     @Column(name="Stato")
     private Stato stato;
@@ -23,9 +21,6 @@ public class DistributtoreAutomatico extends Rivenditore{
 
     }
 
-    public UUID getId_distributoreautomatico() {
-        return id_distributoreautomatico;
-    }
 
 
     public Stato getStato() {
