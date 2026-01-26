@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
-
+@Entity
+@Table(name = "abbonamenti")
 public class Abbonamento {
     @Id
     @GeneratedValue
