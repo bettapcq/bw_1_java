@@ -27,7 +27,7 @@ public class Mezzo {
     private Tipo tipo;
 
     @ManyToMany(mappedBy = "mezzi")
-    private List<Manutenzione> manutenzioni = new ArrayList<>();
+    private List<Tratta> tratte = new ArrayList<>();
 
     public Mezzo() {
     }
@@ -36,7 +36,7 @@ public class Mezzo {
         this.capienza = capienza;
         this.fine_attivita = fine_attivita;
         this.inizio_attivita = inizio_attivita;
-        this.manutenzioni = manutenzioni;
+        this.tratte = tratte;
         this.tipo = tipo;
     }
 
@@ -72,12 +72,12 @@ public class Mezzo {
         this.inizio_attivita = inizio_attivita;
     }
 
-    public List<Manutenzione> getManutenzioni() {
-        return manutenzioni;
+    public List<Tratta> getTratte() {
+        return tratte;
     }
 
-    public void setManutenzioni(List<Manutenzione> manutenzioni) {
-        this.manutenzioni = manutenzioni;
+    public void setTratte(List<Tratta> tratte) {
+        this.tratte = tratte;
     }
 
     public Tipo getTipo() {
@@ -96,7 +96,7 @@ public class Mezzo {
                 ", inizio_attivita=" + inizio_attivita +
                 ", fine_attivita=" + fine_attivita +
                 ", tipo=" + tipo +
-                ", manutenzioni=" + manutenzioni +
+                ", tratte=" + tratte +
                 '}';
     }
 }

@@ -17,6 +17,7 @@
         <class>team5.entities.RivenditoreAutorizzato</class>
         <class>team5.entities.Tratta</class>
         <class>team5.entities.Mezzo</class>
+        <class>team5.entities.Tessera</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bw1java"/>
