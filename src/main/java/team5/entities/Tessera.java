@@ -24,12 +24,11 @@ public class Tessera {
         //costruttore vuoto
     }
 
-//    public Tessera(UUID idTessera, boolean attiva, Utente utente){
-//        this.idTessera = idTessera;
-//        this.attiva = attiva;
-//        this.utente = utente.getIdUtente();
-//
-//    }
+    public Tessera(boolean attiva, Utente utente){
+        this.attiva = attiva;
+        this.utente = utente.getIdUtente();
+
+    }
 
     public UUID getIdTessera() {
         return idTessera;

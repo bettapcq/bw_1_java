@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
+
 @Entity
 @Table(name = "abbonamenti")
 public class Abbonamento {
@@ -18,14 +19,25 @@ public class Abbonamento {
     @Column(name = "costo")
     private Double costo;
 
-//
-//    @ManyToOne
-//    @JoinColumn(name = "id_reseller", nullable = false)
-//    private Rivenditore rivenditore;
+
+    @ManyToOne
+    @JoinColumn(name = "id_reseller", nullable = false)
+    private Rivenditore rivenditore;
 
     @ManyToOne
     @JoinColumn(name = "id_tessera", nullable = false)
     private Tessera tessera;
+
+public Abbonamento(){
+    //costr vuoto
+}
+
+    public Abbonamento(LocalDate dataEmissione, Double costo, Rivenditore rivenditore, Tessera tessera) {
+        this.dataEmissione = dataEmissione;
+        this.costo = costo;
+        this.rivenditore = rivenditore.getId_rivenditore();
+        this.tessera = tessera.getIdTessera();
+    }
 
     public UUID getIdAbbonamento() {
         return idAbbonamento;
