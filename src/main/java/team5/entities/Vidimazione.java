@@ -30,8 +30,8 @@ public class Vidimazione {
     }
 
     public Vidimazione(Mezzo mezzo, Biglietto biglietto, LocalDate dataVidimazione){
-        this.mezzo = mezzo.getIdMezzo();
-        this.biglietto = biglietto.getIdBiglietto();
+        this.mezzo = mezzo;
+        this.biglietto = biglietto;
         this.dataVidimazione = dataVidimazione;
     }
 

@@ -35,8 +35,8 @@ public Abbonamento(){
     public Abbonamento(LocalDate dataEmissione, Double costo, Rivenditore rivenditore, Tessera tessera) {
         this.dataEmissione = dataEmissione;
         this.costo = costo;
-        this.rivenditore = rivenditore.getId_rivenditore();
-        this.tessera = tessera.getIdTessera();
+        this.rivenditore = rivenditore;
+        this.tessera = tessera;
     }
 
     public UUID getIdAbbonamento() {

@@ -26,7 +26,7 @@ public class Tessera {
 
     public Tessera(boolean attiva, Utente utente){
         this.attiva = attiva;
-        this.utente = utente.getIdUtente();
+        this.utente = utente;
 
     }
 
