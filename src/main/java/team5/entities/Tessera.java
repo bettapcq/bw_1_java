@@ -46,9 +46,9 @@ public class Tessera {
         return utente;
     }
 
-//    public void setUtente(Utente utente) {
-//        this.utente = utente;
-//    }
+    public void setUtente(Utente utente) {
+      this.utente = utente;
+    }
 
     @Override
     public String toString() {

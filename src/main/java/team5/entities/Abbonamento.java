@@ -28,9 +28,9 @@ public class Abbonamento {
     @JoinColumn(name = "id_tessera", nullable = false)
     private Tessera tessera;
 
-public Abbonamento(){
+    public Abbonamento(){
     //costr vuoto
-}
+        }
 
     public Abbonamento(LocalDate dataEmissione, Double costo, Rivenditore rivenditore, Tessera tessera) {
         this.dataEmissione = dataEmissione;

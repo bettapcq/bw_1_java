@@ -7,6 +7,16 @@
     <persistence-unit name="bw1javapu">
         <!-- all'interno della unit andremmo a inserire l'elenco delle
         classi e le properties con le loro property (K V)  -->
+        <class>team5.entities.Rivenditore</class>
+        <class>team5.entities.Biglietto</class>
+        <class>team5.entities.Abbonamento</class>
+        <class>team5.entities.DistributtoreAutomatico</class>
+        <class>team5.entities.Utente</class>
+        <class>team5.entities.Vidimazione</class>
+        <class>team5.entities.Manutenzione</class>
+        <class>team5.entities.RivenditoreAutorizzato</class>
+        <class>team5.entities.Tratta</class>
+        <class>team5.entities.Mezzo</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/bw1java"/>
