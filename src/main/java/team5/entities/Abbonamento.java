@@ -21,7 +21,7 @@ public class Abbonamento {
 
 
     @ManyToOne
-    @JoinColumn(name = "id_reseller", nullable = false)
+    @JoinColumn(name = "id_rivenditore", nullable = false)
     private Rivenditore rivenditore;
 
     @ManyToOne
