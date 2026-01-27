@@ -6,11 +6,11 @@ import jakarta.persistence.Persistence;
 
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("bw1javapu");
+
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
         System.out.println("Hello World!1 ");
-        em.close();
-        emf.close();
+
 
     }
 }
