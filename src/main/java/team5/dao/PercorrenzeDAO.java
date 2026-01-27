@@ -20,9 +20,6 @@ public class PercorrenzeDAO {
         em.persist(newPercorrenza);
         transaction.commit();
         System.out.println("la percorrenza con id: " + newPercorrenza.getId_percorrenza()+ " è stata salvata correttamente");
-
-
-
     }
 
     public Percorrenza findByIdPercorrenza (UUID idpercorrenza) {
@@ -32,7 +29,6 @@ public class PercorrenzeDAO {
     }
 
 
-
     public void findPercorrenzaByIdAndDelete(UUID id_percorrenza) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
@@ -40,14 +36,13 @@ public class PercorrenzeDAO {
         query.setParameter("id", id_percorrenza);
         int numDeleted = query.executeUpdate();
         transaction.commit();
-        System.out.println("sono stati cancellati :" + numDeleted + " elementi");
+        System.out.println("Sono stati cancellati :" + numDeleted + " elementi");
     }
 
     public int findNumeroPercorrenze(UUID id_tratta, UUID id_mezzo) {
         Query query = em.createQuery(
                 "SELECT COUNT(p) FROM Percorrenza p WHERE p.id_tratta = :id_tratta AND p.id_mezzo = :id_mezzo"
         );
-
         query.setParameter("id_tratta", id_tratta);
         query.setParameter("id_mezzo", id_mezzo);
         int rslt = (int) query.getSingleResult();

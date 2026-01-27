@@ -2,9 +2,12 @@ package team5.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 import team5.entities.Manutenzione;
 import team5.exceptions.NotFoundException;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public class ManutenzioneDAO {
@@ -55,5 +58,44 @@ public class ManutenzioneDAO {
 
         // 6. Log di avvenuta cancellazione
         System.out.println("La manutenzione con id: " + id_manutenzione + " è stata eliminata correttamente!");
+    }
+    public void periodiManutenzione(UUID id_mezzo) {
+        Query query1 = em.createQuery(
+                "SELECT m.inizio_manutenzione FROM Manutenzione m WHERE m.id_mezzo = :id_mezzo"
+        );
+        query1.setParameter("id_mezzo", id_mezzo);
+        List<LocalDate> rslt1 = query1.getResultList();
+
+        Query query2 = em.createQuery(
+                "SELECT m.fine_manutenzione FROM Manutenzione m WHERE m.id_mezzo = :id_mezzo"
+        );
+        query2.setParameter("id_mezzo", id_mezzo);
+        List<LocalDate> rslt2 = query2.getResultList();
+
+        for (int i = 0; i < rslt1.size(); i++) {
+            LocalDate l1 = null;
+            LocalDate l2 = null;
+            try {
+                l1 = rslt1.get(i);
+            } catch (Exception e) {
+            }
+
+            try {
+                l2 = rslt1.get(i);
+            } catch (Exception e) {
+            }
+            if (rslt2.get(i) == null) {
+                System.out.println(
+                        "Manutenzione dal " + l1 +
+                                " ad oggi"
+                );
+            } else {
+                System.out.println(
+                        "Manutenzione dal " + l1 +
+                                " al " + l2
+                );
+            }
+
+        }
     }
 }
