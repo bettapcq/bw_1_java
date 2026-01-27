@@ -19,11 +19,10 @@ public class Tratta {
     private int lunghezza_km;
     private int tempo_previsto_minuti;
 
-
     public Tratta() {
     }
 
-    public Tratta(String capolinea, int lunghezza_km,  String partenza, int tempo_previsto_minuti) {
+    public Tratta(String capolinea, int lunghezza_km, String partenza, int tempo_previsto_minuti) {
         this.capolinea = capolinea;
         this.lunghezza_km = lunghezza_km;
         this.partenza = partenza;
@@ -54,7 +53,6 @@ public class Tratta {
         this.lunghezza_km = lunghezza_km;
     }
 
-
     public String getPartenza() {
         return partenza;
     }
@@ -62,6 +60,7 @@ public class Tratta {
     public void setPartenza(String partenza) {
         this.partenza = partenza;
     }
+
 
     public int getTempo_previsto_minuti() {
         return tempo_previsto_minuti;
