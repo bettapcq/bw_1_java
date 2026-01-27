@@ -74,6 +74,9 @@ public class Tessera {
         this.data_scadenza = data_scadenza;
     }
 
+    public void setNumeroTessera(String s) {
+    }
+
     @Override
     public String toString() {
         return "Tessera{" +
@@ -82,4 +85,5 @@ public class Tessera {
                 ", utente=" + utente +
                 '}';
     }
+
 }
