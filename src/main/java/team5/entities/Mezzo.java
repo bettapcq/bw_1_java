@@ -26,17 +26,15 @@ public class Mezzo {
     private LocalDate fine_attivita;
     private Tipo tipo;
 
-    @ManyToMany(mappedBy = "mezzi")
-    private List<Tratta> tratte = new ArrayList<>();
+
 
     public Mezzo() {
     }
 
-    public Mezzo(int capienza, LocalDate fine_attivita, LocalDate inizio_attivita, List<Manutenzione> manutenzioni, Tipo tipo) {
+    public Mezzo(int capienza, LocalDate fine_attivita, LocalDate inizio_attivita, Tipo tipo) {
         this.capienza = capienza;
         this.fine_attivita = fine_attivita;
         this.inizio_attivita = inizio_attivita;
-        this.tratte = tratte;
         this.tipo = tipo;
     }
 
@@ -72,13 +70,6 @@ public class Mezzo {
         this.inizio_attivita = inizio_attivita;
     }
 
-    public List<Tratta> getTratte() {
-        return tratte;
-    }
-
-    public void setTratte(List<Tratta> tratte) {
-        this.tratte = tratte;
-    }
 
     public Tipo getTipo() {
         return tipo;
@@ -96,7 +87,6 @@ public class Mezzo {
                 ", inizio_attivita=" + inizio_attivita +
                 ", fine_attivita=" + fine_attivita +
                 ", tipo=" + tipo +
-                ", tratte=" + tratte +
                 '}';
     }
 }

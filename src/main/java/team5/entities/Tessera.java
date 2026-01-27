@@ -2,6 +2,7 @@ package team5.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -16,6 +17,12 @@ public class Tessera {
     @Column(name = "attiva")
     private boolean attiva;
 
+    @Column(name = "data_emissione")
+    private LocalDate data_emissione;
+
+    @Column(name = "data_scadenza")
+    private LocalDate data_scadenza;
+
     @OneToOne
     @JoinColumn(name = "id_utente")
     private Utente utente;
@@ -24,10 +31,11 @@ public class Tessera {
         //costruttore vuoto
     }
 
-    public Tessera(boolean attiva, Utente utente){
+    public Tessera(boolean attiva, LocalDate data_emissione, LocalDate data_scadenza, Utente utente) {
         this.attiva = attiva;
+        this.data_emissione = data_emissione;
+        this.data_scadenza = data_scadenza;
         this.utente = utente;
-
     }
 
     public UUID getIdTessera() {
@@ -48,6 +56,22 @@ public class Tessera {
 
     public void setUtente(Utente utente) {
       this.utente = utente;
+    }
+
+    public LocalDate getData_emissione() {
+        return data_emissione;
+    }
+
+    public void setData_emissione(LocalDate data_emissione) {
+        this.data_emissione = data_emissione;
+    }
+
+    public LocalDate getData_scadenza() {
+        return data_scadenza;
+    }
+
+    public void setData_scadenza(LocalDate data_scadenza) {
+        this.data_scadenza = data_scadenza;
     }
 
     @Override

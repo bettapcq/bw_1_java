@@ -18,25 +18,15 @@ public class Tratta {
     private String capolinea;
     private int lunghezza_km;
     private int tempo_previsto_minuti;
-    private int tempo_effettivo_minuti;
 
-    @ManyToMany
-    @JoinTable(
-            name = "tratte_mezzi",
-            joinColumns = @JoinColumn(name = "id_tratta"),
-            inverseJoinColumns = @JoinColumn(name = "id_mezzo")
-    )
-    private List<Mezzo> mezzi = new ArrayList<>();
 
     public Tratta() {
     }
 
-    public Tratta(String capolinea, int lunghezza_km, List<Mezzo> mezzi, String partenza, int tempo_effettivo_minuti, int tempo_previsto_minuti) {
+    public Tratta(String capolinea, int lunghezza_km,  String partenza, int tempo_previsto_minuti) {
         this.capolinea = capolinea;
         this.lunghezza_km = lunghezza_km;
-        this.mezzi = mezzi;
         this.partenza = partenza;
-        this.tempo_effettivo_minuti = tempo_effettivo_minuti;
         this.tempo_previsto_minuti = tempo_previsto_minuti;
     }
 
@@ -64,13 +54,6 @@ public class Tratta {
         this.lunghezza_km = lunghezza_km;
     }
 
-    public List<Mezzo> getMezzi() {
-        return mezzi;
-    }
-
-    public void setMezzi(List<Mezzo> mezzi) {
-        this.mezzi = mezzi;
-    }
 
     public String getPartenza() {
         return partenza;
@@ -78,14 +61,6 @@ public class Tratta {
 
     public void setPartenza(String partenza) {
         this.partenza = partenza;
-    }
-
-    public int getTempo_effettivo_minuti() {
-        return tempo_effettivo_minuti;
-    }
-
-    public void setTempo_effettivo_minuti(int tempo_effettivo_minuti) {
-        this.tempo_effettivo_minuti = tempo_effettivo_minuti;
     }
 
     public int getTempo_previsto_minuti() {
@@ -104,8 +79,6 @@ public class Tratta {
                 ", partenza='" + partenza + '\'' +
                 ", lunghezza_km=" + lunghezza_km +
                 ", tempo_previsto_minuti=" + tempo_previsto_minuti +
-                ", tempo_effettivo_minuti=" + tempo_effettivo_minuti +
-                ", mezzi=" + mezzi +
                 '}';
     }
 }

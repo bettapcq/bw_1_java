@@ -20,12 +20,15 @@ public class Biglietto {
     @Column(name = "costo")
     int costo;
 
-    @Column(name = "utilizzato")
-    boolean utilizzato;
+    @Column(name = "codice_univco")
+    String codice_univoco;
+
+    @Column(name = "data_validazione")
+    LocalDate data_validazione;
 
     @ManyToOne
-    @JoinColumn(name = "id_utente")
-    private Utente utente;
+    @JoinColumn(name = "id_mezzo")
+    private Mezzo mezzi;
 
     @ManyToOne
     @JoinColumn(name = "id_rivenditore")
@@ -34,11 +37,12 @@ public class Biglietto {
     public Biglietto(){
     }
 
-    public Biglietto(LocalDate data_emissione, int costo, boolean utilizzato, Utente utente, Rivenditore rivenditore) {
+    public Biglietto(LocalDate data_emissione, int costo, String codice_univoco, LocalDate data_validazione, Mezzo mezzi, Rivenditore rivenditore) {
         this.data_emissione = data_emissione;
         this.costo = costo;
-        this.utilizzato = utilizzato;
-        this.utente = utente;
+        this.codice_univoco = codice_univoco;
+        this.data_validazione = data_validazione;
+        this.mezzi = mezzi;
         this.rivenditore = rivenditore;
     }
 
@@ -62,20 +66,36 @@ public class Biglietto {
         this.costo = costo;
     }
 
-    public boolean isUtilizzato() {
-        return utilizzato;
+    public String getCodice_univoco() {
+        return codice_univoco;
     }
 
-    public void setUtilizzato(boolean utilizzato) {
-        this.utilizzato = utilizzato;
+    public void setCodice_univoco(String codice_univoco) {
+        this.codice_univoco = codice_univoco;
     }
 
-    public Utente getUtente() {
-        return utente;
+    public LocalDate getData_validazione() {
+        return data_validazione;
     }
 
-    public void setUtente(Utente utente) {
-        this.utente = utente;
+    public void setData_validazione(LocalDate data_validazione) {
+        this.data_validazione = data_validazione;
+    }
+
+    public Mezzo getMezzi() {
+        return mezzi;
+    }
+
+    public void setMezzi(Mezzo mezzi) {
+        this.mezzi = mezzi;
+    }
+
+    public Rivenditore getRivenditore() {
+        return rivenditore;
+    }
+
+    public void setRivenditore(Rivenditore rivenditore) {
+        this.rivenditore = rivenditore;
     }
 
     @Override
@@ -84,8 +104,10 @@ public class Biglietto {
                 "idBiglietto=" + idBiglietto +
                 ", data_emissione=" + data_emissione +
                 ", costo=" + costo +
-                ", utilizzato=" + utilizzato +
-                ", utente=" + utente +
+                ", codice_univoco='" + codice_univoco + '\'' +
+                ", data_validazione=" + data_validazione +
+                ", mezzi=" + mezzi +
+                ", rivenditore=" + rivenditore +
                 '}';
     }
 }

@@ -19,6 +19,14 @@ public class Abbonamento {
     @Column(name = "costo")
     private Double costo;
 
+    @Column(name = "codice_univco")
+    String codice_univoco;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="Periodicit")
+    private Periodicita periodicita;
+
+
 
     @ManyToOne
     @JoinColumn(name = "id_rivenditore", nullable = false)
@@ -32,9 +40,11 @@ public class Abbonamento {
     //costr vuoto
         }
 
-    public Abbonamento(LocalDate dataEmissione, Double costo, Rivenditore rivenditore, Tessera tessera) {
+    public Abbonamento(LocalDate dataEmissione, Double costo, String codice_univoco, Periodicita periodicita, Rivenditore rivenditore, Tessera tessera) {
         this.dataEmissione = dataEmissione;
         this.costo = costo;
+        this.codice_univoco = codice_univoco;
+        this.periodicita = periodicita;
         this.rivenditore = rivenditore;
         this.tessera = tessera;
     }
@@ -48,10 +58,6 @@ public class Abbonamento {
         return dataEmissione;
     }
 
-    public void setDataEmissione(LocalDate dataEmissione) {
-        this.dataEmissione = dataEmissione;
-    }
-
     public Double getCosto() {
         return costo;
     }
@@ -62,6 +68,22 @@ public class Abbonamento {
 
     public Tessera getTessera() {
         return tessera;
+    }
+
+    public String getCodice_univoco() {
+        return codice_univoco;
+    }
+
+    public Periodicita getPeriodicita() {
+        return periodicita;
+    }
+
+    public Rivenditore getRivenditore() {
+        return rivenditore;
+    }
+
+    public void setTessera(Tessera tessera) {
+        this.tessera = tessera;
     }
 
     @Override
