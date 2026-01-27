@@ -3,7 +3,8 @@ package team5.dao;
 import jakarta.persistence.*;
 import team5.entities.Biglietto;
 import team5.entities.Mezzo;
-import team5.entities.Rivenditore;
+import team5.exceptions.AlreadyEndorsedTicket;
+import team5.exceptions.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -51,43 +52,47 @@ public class BigliettoDAO {
         System.out.println("Il biglietto con codice:" + codice_univoco + "è stato eliminato!!");
     }
 
-    //EMISSIONE BIGLIETTI
-    public void emissioneBiglietti(LocalDate data_emissione, int costo, Mezzo mezzo, Rivenditore rivenditore){
-        EntityTransaction tr = entityManager.getTransaction();
-
-        try {
-            tr.begin();
-            Biglietto biglietto = new Biglietto();
-            biglietto.setData_emissione(data_emissione);
-            biglietto.setCosto(costo);
+    public void vidimazioneBiglietto(String codiceunivoco, Mezzo mezzo) {
+        EntityTransaction et = entityManager.getTransaction();
+        et.begin();
+        Biglietto biglietto = findByCodiceUnivoco(codiceunivoco);
+        if (biglietto.getData_validazione() != null) {
+           throw new AlreadyEndorsedTicket(" questo biglietto è già stato vidimato, non fare il furbo bastardo");
+        } else {
+            biglietto.setData_validazione(LocalDate.now());
+           // entityManager.merge(biglietto);
             biglietto.setMezzi(mezzo);
-            biglietto.setRivenditore(rivenditore);
-
-            //GENERA UN CODICE UNIVOCO
-            Long count = (Long) entityManager.createQuery("SELECT COUNT (b) FROM Biglietto b").getSingleResult();
-            String codice = String.format("B-%04d", count + 1);
-            biglietto.setCodice_univoco(codice);
-
-            entityManager.persist(biglietto);
-            tr.commit();
-            System.out.println("Biglietto emesso " + biglietto);
-
-        }catch (RuntimeException e){
-            if (tr.isActive()) tr.rollback();
-            throw  e;
+            entityManager.merge(biglietto);
+            et.commit();
+            System.out.println("il biglietto   " + codiceunivoco + " " + mezzo + " è stato vidimato ");
         }
-
+    //  numero biglietti vidimati su un mezzo
+    public long numeroBigliettiVidimatiPerMezzo(Mezzo mezzo) {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b " +
+                        "WHERE b.data_validazione IS NOT NULL " +
+                        "AND b.mezzi = :mezzo",
+                Long.class
+        );
+        query.setParameter("mezzo", mezzo);
+        return query.getSingleResult();
     }
 
-    //NUMERO DI BIGLIETTI EMESSI DA UN PUNTO VENDITA E PER UN PERIODO DI TEMPO
-    public Long numeroBigliettiEmessiPerRivenditoriEPerPeriodo(Rivenditore rivenditore, LocalDate inizio, LocalDate fine){
-       TypedQuery<Long> query = entityManager.createQuery("" +
-       "SELECT COUNT(b) FROM Biglietto b " +
-       "WHERE b.rivenditore = :rivenditore AND b.data_emissione BETWEEN :inizio AND :fine", Long.class);
-       query.setParameter("rivenditore", rivenditore);
-       query.setParameter("inizio", inizio);
-       query.setParameter("fine", fine);
+    // numero biglietti vidimati in un periodo
+    public long numeroBigliettiVidimatiDaData(LocalDate inizio) {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b " +
+                        "WHERE b.data_validazione IS NOT NULL " +
+                        "AND b.data_validazione >= :inizio",
+                Long.class
+        );
 
-       return query.getSingleResult();
+        query.setParameter("inizio", inizio);
+        return query.getSingleResult();
+    }
+
+
+}
+
     }
 }
