@@ -9,14 +9,6 @@ import java.util.UUID;
 @Table(name="manutenzioni")
 public class Manutenzione {
 
-    public enum Tipologia{
-        Ruote,
-        Motore,
-        Carrozzeria,
-        Elettronica,
-        Meccanica_altro
-    }
-
     @Id
     @GeneratedValue
     private UUID id_manutenzione;

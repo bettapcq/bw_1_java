@@ -31,13 +31,13 @@ public class MezzoDAO {
 
     }
 
-    public Tratta findbyID(String id_mezzo){
-        Tratta found = em.find(Tratta.class, UUID.fromString(id_mezzo));
+    public Tratta findbyID(UUID id_mezzo){
+        Tratta found = em.find(Tratta.class, id_mezzo);
         if (found == null) throw new NotFoundException(id_mezzo);
         return found;
     }
 
-    public void findByIdAndDelete(String id_mezzo) {
+    public void findByIdAndDelete(UUID id_mezzo) {
         // 1. Cerco lo studente
         Tratta found = this.findbyID(id_mezzo);
 

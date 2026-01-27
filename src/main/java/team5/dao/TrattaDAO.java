@@ -32,13 +32,13 @@ public class TrattaDAO {
 
     }
 
-    public Tratta findbyID(String id_tratta){
-        Tratta found = em.find(Tratta.class, UUID.fromString(id_tratta));
+    public Tratta findbyID(UUID id_tratta){
+        Tratta found = em.find(Tratta.class, id_tratta);
         if (found == null) throw new NotFoundException(id_tratta);
         return found;
     }
 
-    public void findByIdAndDelete(String id_tratta) {
+    public void findByIdAndDelete(UUID id_tratta) {
         // 1. Cerco lo studente
         Tratta found = this.findbyID(id_tratta);
 

@@ -31,13 +31,13 @@ public class ManutenzioneDAO {
 
     }
 
-    public Manutenzione findbyID(String id_manutenzione){
-        Manutenzione found = em.find(Manutenzione.class, UUID.fromString(id_manutenzione));
+    public Manutenzione findbyID(UUID id_manutenzione){
+        Manutenzione found = em.find(Manutenzione.class,id_manutenzione);
         if (found == null) throw new NotFoundException(id_manutenzione);
         return found;
     }
 
-    public void findByIdAndDelete(String id_manutenzione) {
+    public void findByIdAndDelete(UUID id_manutenzione) {
         // 1. Cerco lo studente
         Manutenzione found = this.findbyID(id_manutenzione);
 
