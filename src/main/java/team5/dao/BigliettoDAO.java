@@ -57,42 +57,30 @@ public class BigliettoDAO {
         et.begin();
         Biglietto biglietto = findByCodiceUnivoco(codiceunivoco);
         if (biglietto.getData_validazione() != null) {
-           throw new AlreadyEndorsedTicket(" questo biglietto è già stato vidimato, non fare il furbo bastardo");
+            throw new AlreadyEndorsedTicket(" questo biglietto è già stato vidimato, non fare il furbo bastardo");
         } else {
             biglietto.setData_validazione(LocalDate.now());
-           // entityManager.merge(biglietto);
+            // entityManager.merge(biglietto);
             biglietto.setMezzi(mezzo);
             entityManager.merge(biglietto);
             et.commit();
             System.out.println("il biglietto   " + codiceunivoco + " " + mezzo + " è stato vidimato ");
         }
+    }
     //  numero biglietti vidimati su un mezzo
     public long numeroBigliettiVidimatiPerMezzo(Mezzo mezzo) {
-        TypedQuery<Long> query = entityManager.createQuery(
-                "SELECT COUNT(b) FROM Biglietto b " +
-                        "WHERE b.data_validazione IS NOT NULL " +
-                        "AND b.mezzi = :mezzo",
-                Long.class
-        );
+        TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.mezzi = :mezzo", Long.class);
         query.setParameter("mezzo", mezzo);
         return query.getSingleResult();
     }
 
     // numero biglietti vidimati in un periodo
     public long numeroBigliettiVidimatiDaData(LocalDate inizio) {
-        TypedQuery<Long> query = entityManager.createQuery(
-                "SELECT COUNT(b) FROM Biglietto b " +
-                        "WHERE b.data_validazione IS NOT NULL " +
-                        "AND b.data_validazione >= :inizio",
-                Long.class
-        );
+            TypedQuery<Long> query = entityManager.createQuery(
+                    "SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.data_validazione >= :inizio", Long.class);
 
-        query.setParameter("inizio", inizio);
-        return query.getSingleResult();
+            query.setParameter("inizio", inizio);
+            return query.getSingleResult();
+        }
     }
 
-
-}
-
-    }
-}
