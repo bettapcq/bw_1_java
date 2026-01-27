@@ -2,7 +2,11 @@ package team5.dao;
 
 import jakarta.persistence.*;
 import team5.entities.Biglietto;
+import team5.entities.Mezzo;
+import team5.exceptions.AlreadyEndorsedTicket;
+import team5.exceptions.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class BigliettoDAO {
@@ -47,5 +51,23 @@ public class BigliettoDAO {
         tr.commit();
         System.out.println("Il biglietto con codice:" + codice_univoco + "è stato eliminato!!");
     }
+    public void vidimazzioneBiglietto(String codiceunivoco, Mezzo mezzo) {
+        EntityTransaction et = entityManager.getTransaction();
+        et.begin();
+        Biglietto biglietto = findByCodiceUnivoco(codiceunivoco);
+        if (biglietto.getData_validazione() != null){
+            throw new AlreadyEndorsedTicket(" questo biglietto è già stato vidimato, non fare il furbo bastardo");
+        }
+        biglietto.setData_validazione(LocalDate.now());
+        entityManager.merge(biglietto);
+        et.commit();
+        biglietto.setMezzi(mezzo);
+        entityManager.merge(biglietto);
+        et.commit();
+        System.out.println("il biglietto " + codiceunivoco+ " " + mezzo + " è stato vidimato ");
+    }
+
+
+
 
 }
