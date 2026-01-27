@@ -24,6 +24,9 @@ public class Manutenzione {
     @Column
     private LocalDate inizio_manutenzione;
     private LocalDate fine_manutenzione;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="Tipologia")
     private Tipologia tipologia;
 
     @ManyToOne
