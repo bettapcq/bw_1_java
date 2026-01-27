@@ -11,10 +11,6 @@ import java.util.UUID;
 @Table(name="mezzi")
 public class Mezzo {
 
-    public enum Tipo{
-        Autobus,
-        Tram
-    }
 
     @Id
     @GeneratedValue
@@ -24,16 +20,18 @@ public class Mezzo {
     private int capienza;
     private LocalDate inizio_attivita;
     private LocalDate fine_attivita;
-    private Tipo tipo;
+    @Enumerated(EnumType.STRING)
+    @Column(name="Tipologia")
+    private Tipologia tipologia;
 
     public Mezzo() {
     }
 
-    public Mezzo(int capienza, LocalDate fine_attivita, LocalDate inizio_attivita, Tipo tipo) {
+    public Mezzo(int capienza, LocalDate fine_attivita, LocalDate inizio_attivita, Tipologia tipologia) {
         this.capienza = capienza;
         this.fine_attivita = fine_attivita;
         this.inizio_attivita = inizio_attivita;
-        this.tipo = tipo;
+        this.tipologia = tipologia;
     }
 
     public int getCapienza() {
@@ -68,12 +66,12 @@ public class Mezzo {
         this.inizio_attivita = inizio_attivita;
     }
 
-    public Tipo getTipo() {
-        return tipo;
+    public Tipologia getTipologia() {
+        return tipologia;
     }
 
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
+    public void setTipologia(Tipologia tipologia) {
+        this.tipologia = tipologia;
     }
 
     @Override
@@ -83,7 +81,7 @@ public class Mezzo {
                 ", id_mezzo=" + id_mezzo +
                 ", inizio_attivita=" + inizio_attivita +
                 ", fine_attivita=" + fine_attivita +
-                ", tipo=" + tipo +
+                ", tipologia=" + tipologia +
                 '}';
     }
 }
