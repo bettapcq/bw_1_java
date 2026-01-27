@@ -12,17 +12,17 @@ import java.util.UUID;
 public class BigliettoDAO {
     private final EntityManager entityManager;
 
-    public BigliettoDAO(EntityManager entityManager){
+    public BigliettoDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     //SAVE BIGLIETTO
-    public void save(Biglietto newBiglietto){
+    public void save(Biglietto newBiglietto) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(newBiglietto);
         transaction.commit();
-        System.out.println( "Il biglietto" +newBiglietto.getCodice_univoco()+ " stato salvato nel DB!!");
+        System.out.println("Il biglietto" + newBiglietto.getCodice_univoco() + " stato salvato nel DB!!");
     }
 
     //FIND BIGLIETTO CODICE_UNIVOCO
@@ -30,7 +30,7 @@ public class BigliettoDAO {
         try {
             TypedQuery<Biglietto> query =
                     entityManager.createQuery(
-                    "SELECT b FROM Biglietto b WHERE b.codice_univoco = :codice", Biglietto.class);
+                            "SELECT b FROM Biglietto b WHERE b.codice_univoco = :codice", Biglietto.class);
             query.setParameter("codice", codice_univoco);
 
             Biglietto biglietto = query.getSingleResult();
@@ -51,23 +51,21 @@ public class BigliettoDAO {
         tr.commit();
         System.out.println("Il biglietto con codice:" + codice_univoco + "è stato eliminato!!");
     }
-    public void vidimazzioneBiglietto(String codiceunivoco, Mezzo mezzo) {
+
+    public void vidimazioneBiglietto(String codiceunivoco, Mezzo mezzo) {
         EntityTransaction et = entityManager.getTransaction();
         et.begin();
         Biglietto biglietto = findByCodiceUnivoco(codiceunivoco);
-        if (biglietto.getData_validazione() != null){
-            throw new AlreadyEndorsedTicket(" questo biglietto è già stato vidimato, non fare il furbo bastardo");
+        if (biglietto.getData_validazione() != null) {
+           throw new AlreadyEndorsedTicket(" questo biglietto è già stato vidimato, non fare il furbo bastardo");
+        } else {
+            biglietto.setData_validazione(LocalDate.now());
+           // entityManager.merge(biglietto);
+            biglietto.setMezzi(mezzo);
+            entityManager.merge(biglietto);
+            et.commit();
+            System.out.println("il biglietto   " + codiceunivoco + " " + mezzo + " è stato vidimato ");
         }
-        biglietto.setData_validazione(LocalDate.now());
-        entityManager.merge(biglietto);
-        et.commit();
-        biglietto.setMezzi(mezzo);
-        entityManager.merge(biglietto);
-        et.commit();
-        System.out.println("il biglietto " + codiceunivoco+ " " + mezzo + " è stato vidimato ");
+
     }
-
-
-
-
 }

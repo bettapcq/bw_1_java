@@ -21,17 +21,17 @@ public class Mezzo {
     private LocalDate inizio_attivita;
     private LocalDate fine_attivita;
     @Enumerated(EnumType.STRING)
-    @Column(name="Tipologia")
-    private Tipologia tipologia;
+    @Column(name="tipoMezzo")
+    private TipoMezzo tipoMezzo;
 
     public Mezzo() {
     }
 
-    public Mezzo(int capienza, LocalDate fine_attivita, LocalDate inizio_attivita, Tipologia tipologia) {
+    public Mezzo(int capienza, LocalDate fine_attivita, LocalDate inizio_attivita, TipoMezzo tipoMezzo) {
         this.capienza = capienza;
         this.fine_attivita = fine_attivita;
         this.inizio_attivita = inizio_attivita;
-        this.tipologia = tipologia;
+        this.tipoMezzo = tipoMezzo;
     }
 
     public int getCapienza() {
@@ -54,10 +54,6 @@ public class Mezzo {
         return id_mezzo;
     }
 
-    public void setId_mezzo(UUID id_mezzo) {
-        this.id_mezzo = id_mezzo;
-    }
-
     public LocalDate getInizio_attivita() {
         return inizio_attivita;
     }
@@ -66,22 +62,22 @@ public class Mezzo {
         this.inizio_attivita = inizio_attivita;
     }
 
-    public Tipologia getTipologia() {
-        return tipologia;
+    public TipoMezzo getTipoMezzo() {
+        return tipoMezzo;
     }
 
-    public void setTipologia(Tipologia tipologia) {
-        this.tipologia = tipologia;
+    public void setTipoMezzo(TipoMezzo tipoMezzo) {
+        this.tipoMezzo = tipoMezzo;
     }
 
     @Override
     public String toString() {
         return "Mezzo{" +
-                "capienza=" + capienza +
-                ", id_mezzo=" + id_mezzo +
+                "id_mezzo=" + id_mezzo +
+                ", capienza=" + capienza +
                 ", inizio_attivita=" + inizio_attivita +
                 ", fine_attivita=" + fine_attivita +
-                ", tipologia=" + tipologia +
+                ", tipoMezzo=" + tipoMezzo +
                 '}';
     }
 }

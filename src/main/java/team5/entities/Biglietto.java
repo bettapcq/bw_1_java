@@ -20,10 +20,11 @@ public class Biglietto {
     @Column(name = "costo")
     int costo;
 
-    @Column(name = "codice_univco")
+    @Column(name = "codice_univco", unique = true)
     String codice_univoco;
 
     @Column(name = "data_validazione")
+
     LocalDate data_validazione;
 
     @ManyToOne
@@ -37,14 +38,16 @@ public class Biglietto {
     public Biglietto(){
     }
 
-    public Biglietto(LocalDate data_emissione, int costo, String codice_univoco, LocalDate data_validazione, Mezzo mezzi, Rivenditore rivenditore) {
+    public Biglietto(LocalDate data_emissione, int costo, String codice_univoco,  Rivenditore rivenditore) {
         this.data_emissione = data_emissione;
         this.costo = costo;
         this.codice_univoco = codice_univoco;
-        this.data_validazione = data_validazione;
-        this.mezzi = mezzi;
+        this.data_validazione = null;
+        this.mezzi = null;
         this.rivenditore = rivenditore;
     }
+
+
 
     public UUID getIdBiglietto() {
         return idBiglietto;
