@@ -27,14 +27,14 @@ public class Tessera {
     @JoinColumn(name = "id_utente")
     private Utente utente;
 
-    public Tessera(){
+    public Tessera() {
         //costruttore vuoto
     }
 
-    public Tessera(boolean attiva, LocalDate data_emissione, LocalDate data_scadenza, Utente utente) {
-        this.attiva = attiva;
+    public Tessera(LocalDate data_emissione, Utente utente) {
+        this.attiva = true;
         this.data_emissione = data_emissione;
-        this.data_scadenza = data_scadenza;
+        this.data_scadenza = data_emissione.plusYears(1);
         this.utente = utente;
     }
 
@@ -43,7 +43,7 @@ public class Tessera {
     }
 
     public boolean isAttiva() {
-        return attiva;
+        return data_scadenza.isAfter(LocalDate.now());
     }
 
     public void setAttiva(boolean attiva) {
@@ -55,15 +55,11 @@ public class Tessera {
     }
 
     public void setUtente(Utente utente) {
-      this.utente = utente;
+        this.utente = utente;
     }
 
     public LocalDate getData_emissione() {
         return data_emissione;
-    }
-
-    public void setData_emissione(LocalDate data_emissione) {
-        this.data_emissione = data_emissione;
     }
 
     public LocalDate getData_scadenza() {
@@ -73,6 +69,7 @@ public class Tessera {
     public void setData_scadenza(LocalDate data_scadenza) {
         this.data_scadenza = data_scadenza;
     }
+
 
     @Override
     public String toString() {
