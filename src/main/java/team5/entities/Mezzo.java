@@ -26,12 +26,6 @@ public class Mezzo {
     private LocalDate fine_attivita;
     private Tipo tipo;
 
-    @OneToMany(mappedBy = "mezzo_in_manutenzione")
-    private List<Manutenzione> manutenzioni = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "mezzi")
-    private List<Tratta> tratte = new ArrayList<>();
-
     public Mezzo() {
     }
 
@@ -74,14 +68,6 @@ public class Mezzo {
         this.inizio_attivita = inizio_attivita;
     }
 
-    public List<Tratta> getTratte() {
-        return tratte;
-    }
-
-    public void setTratte(List<Tratta> tratte) {
-        this.tratte = tratte;
-    }
-
     public Tipo getTipo() {
         return tipo;
     }
@@ -98,7 +84,6 @@ public class Mezzo {
                 ", inizio_attivita=" + inizio_attivita +
                 ", fine_attivita=" + fine_attivita +
                 ", tipo=" + tipo +
-                ", tratte=" + tratte +
                 '}';
     }
 }
