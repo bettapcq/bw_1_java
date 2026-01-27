@@ -5,6 +5,10 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import team5.entities.Abbonamento;
+import team5.exceptions.NotFoundException;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 public class AbbonamentiDAO {
 
@@ -54,4 +58,19 @@ public class AbbonamentiDAO {
         System.out.println("L'abbonamento num° " + codiceUnivoco + " è stato rimosso dal DB");
     }
 
+    //VERIFICA VALITIDA' ABBONAMENTO BY NUM TESSERA:
+    public void checkValidityByTessera(UUID idTessera) {
+        Abbonamento found = em.createQuery(
+                        "SELECT a FROM Abbonamento a WHERE a.tessera.idTessera = :idTessera",
+                        Abbonamento.class)
+                .setParameter("idTessera", idTessera)
+                .getSingleResult();
+        if (found != null) {
+            if (found.getData_scadenza().isAfter(LocalDate.now())) {
+                System.out.println("L'abbonamento n° " + found.getCodice_univoco() + " è scaduto!");
+            } else {
+                System.out.println("L'abbonamento n° " + found.getCodice_univoco() + " è attivo e scadrà il giorno: " + found.getData_scadenza());
+            }
+        } else throw new NotFoundException(found.getIdAbbonamento());
+    }
 }
