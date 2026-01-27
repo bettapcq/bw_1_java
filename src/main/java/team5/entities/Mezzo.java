@@ -26,8 +26,6 @@ public class Mezzo {
     private LocalDate fine_attivita;
     private Tipo tipo;
 
-
-
     public Mezzo() {
     }
 
@@ -69,7 +67,6 @@ public class Mezzo {
     public void setInizio_attivita(LocalDate inizio_attivita) {
         this.inizio_attivita = inizio_attivita;
     }
-
 
     public Tipo getTipo() {
         return tipo;

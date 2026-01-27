@@ -2,73 +2,74 @@ package team5.entities;
 
 import jakarta.persistence.*;
 
-import java.sql.Time;
-import java.time.LocalTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "percorrenze")
+@Table(name="percorrenze")
 public class Percorrenza {
-
     @Id
     @GeneratedValue
     private UUID id_percorrenza;
 
-    @Column(name = "tempo_effettivo")
-    private LocalTime tempo_effettivo;
+    @ManyToOne
+    @JoinColumn(name="id_mezzo")
+    private Mezzo id_mezzo;
 
     @ManyToOne
-    @JoinColumn(name = "id_tratta")
-    private Tratta tratte;
+    @JoinColumn(name="id_tratta")
+    private Tratta id_tratta;
 
-    @ManyToOne
-    @JoinColumn(name = "id_mezzo")
-    private Mezzo mezzi;
+    @Column
+    private int tempo_effettivo_minuti;
 
     public Percorrenza() {
     }
 
-    public Percorrenza(LocalTime tempo_effettivo, Tratta tratte, Mezzo mezzi) {
-        this.tempo_effettivo = tempo_effettivo;
-        this.tratte = tratte;
-        this.mezzi = mezzi;
+    public Percorrenza(Mezzo id_mezzo, Tratta id_tratta, int tempo_effettivo_minuti) {
+        this.id_mezzo = id_mezzo;
+        this.id_tratta = id_tratta;
+        this.tempo_effettivo_minuti = tempo_effettivo_minuti;
+    }
+
+    public Mezzo getId_mezzo() {
+        return id_mezzo;
+    }
+
+    public void setId_mezzo(Mezzo id_mezzo) {
+        this.id_mezzo = id_mezzo;
     }
 
     public UUID getId_percorrenza() {
         return id_percorrenza;
     }
 
-    public LocalTime getTempo_effettivo() {
-        return tempo_effettivo;
+    public void setId_percorrenza(UUID id_percorrenza) {
+        this.id_percorrenza = id_percorrenza;
     }
 
-    public void setTempo_effettivo(LocalTime tempo_effettivo) {
-        this.tempo_effettivo = tempo_effettivo;
+    public Tratta getId_tratta() {
+        return id_tratta;
     }
 
-    public Tratta getTratte() {
-        return tratte;
+    public void setId_tratta(Tratta id_tratta) {
+        this.id_tratta = id_tratta;
     }
 
-    public void setTratte(Tratta tratte) {
-        this.tratte = tratte;
+    public int getTempo_effettivo_minuti() {
+        return tempo_effettivo_minuti;
     }
 
-    public Mezzo getMezzi() {
-        return mezzi;
-    }
-
-    public void setMezzi(Mezzo mezzi) {
-        this.mezzi = mezzi;
+    public void setTempo_effettivo_minuti(int tempo_effettivo_minuti) {
+        this.tempo_effettivo_minuti = tempo_effettivo_minuti;
     }
 
     @Override
     public String toString() {
         return "Percorrenza{" +
-                "id_percorrenza=" + id_percorrenza +
-                ", tempo_effettivo=" + tempo_effettivo +
-                ", tratte=" + tratte +
-                ", mezzi=" + mezzi +
+                "id_mezzo=" + id_mezzo +
+                ", id_percorrenza=" + id_percorrenza +
+                ", id_tratta=" + id_tratta +
+                ", tempo_effettivo_minuti=" + tempo_effettivo_minuti +
                 '}';
     }
 }
