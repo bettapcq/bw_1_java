@@ -23,7 +23,7 @@ public class Abbonamento {
     String codice_univoco;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="Periodicit")
+    @Column(name="Periodicita")
     private Periodicita periodicita;
 
 
@@ -85,6 +85,19 @@ public class Abbonamento {
     public void setTessera(Tessera tessera) {
         this.tessera = tessera;
     }
+
+    public void setCodice_univoco(String codice) {
+    }
+
+    public void setPeriodicita(Periodicita periodicita) {
+    }
+
+    public void setRivenditore(Rivenditore rivenditore) {
+    }
+
+    public void setDataEmissione(LocalDate dataEmissione) {
+    }
+
 
     @Override
     public String toString() {
