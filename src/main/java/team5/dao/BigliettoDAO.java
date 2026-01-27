@@ -2,7 +2,9 @@ package team5.dao;
 
 import jakarta.persistence.*;
 import team5.entities.Biglietto;
+import team5.entities.Mezzo;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class BigliettoDAO {
@@ -47,5 +49,31 @@ public class BigliettoDAO {
         tr.commit();
         System.out.println("Il biglietto con codice:" + codice_univoco + "è stato eliminato!!");
     }
+
+    //  numero biglietti vidimati su un mezzo
+    public long numeroBigliettiVidimatiPerMezzo(Mezzo mezzo) {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b " +
+                        "WHERE b.data_validazione IS NOT NULL " +
+                        "AND b.mezzi = :mezzo",
+                Long.class
+        );
+        query.setParameter("mezzo", mezzo);
+        return query.getSingleResult();
+    }
+
+    // numero biglietti vidimati in un periodo
+    public long numeroBigliettiVidimatiDaData(LocalDate inizio) {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b " +
+                        "WHERE b.data_validazione IS NOT NULL " +
+                        "AND b.data_validazione >= :inizio",
+                Long.class
+        );
+
+        query.setParameter("inizio", inizio);
+        return query.getSingleResult();
+    }
+
 
 }
