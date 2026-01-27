@@ -26,17 +26,19 @@ public class Mezzo {
     private LocalDate fine_attivita;
     private Tipo tipo;
 
+    @OneToMany(mappedBy = "mezzo_in_manutenzione")
+    private List<Manutenzione> manutenzioni = new ArrayList<>();
+
     @ManyToMany(mappedBy = "mezzi")
     private List<Tratta> tratte = new ArrayList<>();
 
     public Mezzo() {
     }
 
-    public Mezzo(int capienza, LocalDate fine_attivita, LocalDate inizio_attivita, List<Manutenzione> manutenzioni, Tipo tipo) {
+    public Mezzo(int capienza, LocalDate fine_attivita, LocalDate inizio_attivita, Tipo tipo) {
         this.capienza = capienza;
         this.fine_attivita = fine_attivita;
         this.inizio_attivita = inizio_attivita;
-        this.tratte = tratte;
         this.tipo = tipo;
     }
 

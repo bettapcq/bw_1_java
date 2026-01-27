@@ -31,10 +31,9 @@ public class Tratta {
     public Tratta() {
     }
 
-    public Tratta(String capolinea, int lunghezza_km, List<Mezzo> mezzi, String partenza, int tempo_effettivo_minuti, int tempo_previsto_minuti) {
+    public Tratta(String capolinea, int lunghezza_km, String partenza, int tempo_effettivo_minuti, int tempo_previsto_minuti) {
         this.capolinea = capolinea;
         this.lunghezza_km = lunghezza_km;
-        this.mezzi = mezzi;
         this.partenza = partenza;
         this.tempo_effettivo_minuti = tempo_effettivo_minuti;
         this.tempo_previsto_minuti = tempo_previsto_minuti;
