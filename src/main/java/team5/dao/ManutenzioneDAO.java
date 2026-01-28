@@ -88,13 +88,13 @@ public class ManutenzioneDAO {
     }
     public void periodiManutenzione(UUID id_mezzo) {
         Query query1 = em.createQuery(
-                "SELECT m.inizio_manutenzione FROM Manutenzione m WHERE m.id_mezzo = :id_mezzo"
+                "SELECT m.inizio_manutenzione FROM Manutenzione m WHERE m.mezzo_in_manutenzione.id_mezzo = :id_mezzo"
         );
         query1.setParameter("id_mezzo", id_mezzo);
         List<LocalDate> rslt1 = query1.getResultList();
 
         Query query2 = em.createQuery(
-                "SELECT m.fine_manutenzione FROM Manutenzione m WHERE m.id_mezzo = :id_mezzo"
+                "SELECT m.fine_manutenzione FROM Manutenzione m WHERE m.mezzo_in_manutenzione.id_mezzo = :id_mezzo"
         );
         query2.setParameter("id_mezzo", id_mezzo);
         List<LocalDate> rslt2 = query2.getResultList();

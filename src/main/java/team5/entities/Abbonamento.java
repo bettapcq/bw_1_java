@@ -106,6 +106,18 @@ public class Abbonamento {
         this.data_scadenza = data_scadenza;
     }
 
+    public void setCodice_univoco(String codice) {
+    }
+
+    public void setPeriodicita(Periodicita periodicita) {
+    }
+
+    public void setRivenditore(Rivenditore rivenditore) {
+    }
+
+    public void setDataEmissione(LocalDate dataEmissione) {
+    }
+
     @Override
     public String toString() {
         return "Abbonamento{" +
