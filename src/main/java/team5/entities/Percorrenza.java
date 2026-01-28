@@ -25,9 +25,9 @@ public class Percorrenza {
     public Percorrenza() {
     }
 
-    public Percorrenza(Mezzo id_mezzo, Tratta id_tratta, int tempo_effettivo_minuti) {
-        this.id_mezzo = id_mezzo;
-        this.id_tratta = id_tratta;
+    public Percorrenza(Mezzo mezzo, Tratta tratta, int tempo_effettivo_minuti) {
+        this.id_mezzo = mezzo;
+        this.id_tratta = tratta;
         this.tempo_effettivo_minuti = tempo_effettivo_minuti;
     }
 

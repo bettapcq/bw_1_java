@@ -38,7 +38,7 @@ public class TessereDAO {
                 "SELECT t FROM Tessera t WHERE t.idTessera = :idTessera",
                 Tessera.class
         );
-        query.setParameter("idTessera", idTessera);
+        query.setParameter("idTessera", UUID.fromString(idTessera));
 
         return query.getSingleResult();
     }

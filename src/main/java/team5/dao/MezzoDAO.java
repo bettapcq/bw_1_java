@@ -2,6 +2,7 @@ package team5.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import team5.entities.Mezzo;
 import team5.entities.Tratta;
 import team5.exceptions.NotFoundException;
 
@@ -13,7 +14,7 @@ public class MezzoDAO {
         this.em = em;
     }
 
-    public void save(MezzoDAO nuovaMezzo){
+    public void save(Mezzo nuovoMezzo){
         // 1.nuova transazione
         EntityTransaction transaction = em.getTransaction();
 
@@ -21,25 +22,25 @@ public class MezzoDAO {
         transaction.begin();
 
         // 3. Aggiungiamo il nuovoEvento al PersistenceContext
-        em.persist(nuovaMezzo);
+        em.persist(nuovoMezzo);
 
         // 4. Commit
         transaction.commit();
 
         // 5. SO
-        System.out.println("Il mezzo " + nuovaMezzo.toString() + " è stato salvato correttamente nel DB!");
+        System.out.println("Il mezzo " + nuovoMezzo.toString() + " è stato salvato correttamente nel DB!");
 
     }
 
-    public Tratta findbyID(UUID id_mezzo){
-        Tratta found = em.find(Tratta.class, id_mezzo);
-        if (found == null) throw new NotFoundException(id_mezzo);
+    public Mezzo findbyID(String id_mezzo){
+        Mezzo found = em.find(Mezzo.class, UUID.fromString(id_mezzo));
+        if (found == null) throw new NotFoundException(UUID.fromString(id_mezzo));
         return found;
     }
 
-    public void findByIdAndDelete(UUID id_mezzo) {
+    public void findByIdAndDelete(String id_mezzo) {
         // 1. Cerco lo studente
-        Tratta found = this.findbyID(id_mezzo);
+        Mezzo found = this.findbyID(id_mezzo);
 
         // 2. Creo una nuova transazione
         EntityTransaction transaction = em.getTransaction();

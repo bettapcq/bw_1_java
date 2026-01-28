@@ -28,7 +28,7 @@ public class Manutenzione {
     public Manutenzione() {
     }
 
-    public Manutenzione(LocalDate fine_manutenzione, LocalDate inizio_manutenzione, Mezzo mezzo_in_manutenzione, Tipologia tipologia) {
+    public Manutenzione( LocalDate inizio_manutenzione, LocalDate fine_manutenzione, Mezzo mezzo_in_manutenzione, Tipologia tipologia) {
         this.fine_manutenzione = fine_manutenzione;
         this.inizio_manutenzione = inizio_manutenzione;
         this.mezzo_in_manutenzione = mezzo_in_manutenzione;

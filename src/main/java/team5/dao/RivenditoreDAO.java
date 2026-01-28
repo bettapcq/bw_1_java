@@ -22,8 +22,8 @@ public class RivenditoreDAO {
         tx.commit();
     }
 
-    public Rivenditore findById(UUID id) {
-        return em.find(Rivenditore.class, id);
+    public Rivenditore findById(String id) {
+        return em.find(Rivenditore.class, UUID.fromString(id));
     }
 
     public List<Rivenditore> findAll() {

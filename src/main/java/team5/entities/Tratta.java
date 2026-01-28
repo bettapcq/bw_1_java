@@ -22,7 +22,7 @@ public class Tratta {
     public Tratta() {
     }
 
-    public Tratta(String capolinea, int lunghezza_km, String partenza, int tempo_previsto_minuti) {
+    public Tratta( int lunghezza_km, String partenza, String capolinea, int tempo_previsto_minuti) {
         this.capolinea = capolinea;
         this.lunghezza_km = lunghezza_km;
         this.partenza = partenza;

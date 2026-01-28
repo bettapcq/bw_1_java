@@ -27,7 +27,7 @@ public class Mezzo {
     public Mezzo() {
     }
 
-    public Mezzo(int capienza, LocalDate fine_attivita, LocalDate inizio_attivita, TipoMezzo tipoMezzo) {
+    public Mezzo(int capienza,  LocalDate inizio_attivita, LocalDate fine_attivita, TipoMezzo tipoMezzo) {
         this.capienza = capienza;
         this.fine_attivita = fine_attivita;
         this.inizio_attivita = inizio_attivita;
