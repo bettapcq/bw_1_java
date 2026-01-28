@@ -108,10 +108,10 @@ public class ManutenzioneDAO {
             }
 
             try {
-                l2 = rslt1.get(i);
+                l2 = rslt2.get(i);
             } catch (Exception e) {
             }
-            if (rslt2.get(i) == null) {
+            if (l2 == null) {
                 System.out.println(
                         "Manutenzione dal " + l1 +
                                 " ad oggi"
