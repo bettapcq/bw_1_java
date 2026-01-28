@@ -101,6 +101,7 @@ public class Abbonamento {
     }
 
     public void setPeriodicita(Periodicita periodicita) {
+        this.periodicita = periodicita;
     }
 
     public Rivenditore getRivenditore() {
@@ -108,6 +109,7 @@ public class Abbonamento {
     }
 
     public void setRivenditore(Rivenditore rivenditore) {
+        this.rivenditore = rivenditore;
     }
 
     public LocalDate getData_scadenza() {

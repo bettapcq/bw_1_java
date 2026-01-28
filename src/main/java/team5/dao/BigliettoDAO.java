@@ -79,6 +79,7 @@ public class BigliettoDAO {
         TypedQuery<Long> query = entityManager.createQuery(
                 "SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.data_validazione >= :inizio", Long.class);
 
+        System.out.println("Dal " + inizio + " sono stati vidimati " + query.getSingleResult() + " biglietti");
         query.setParameter("inizio", inizio);
         return query.getSingleResult();
     }
@@ -118,7 +119,7 @@ public class BigliettoDAO {
         query.setParameter("rivenditore", rivenditore);
         query.setParameter("inizio", inizio);
         query.setParameter("fine", fine);
-
+        System.out.println("Nel punto vendita " + rivenditore + " dal " + inizio + " al " + fine + " sono stati emessi " + query.getSingleResult() + " biglietti");
         return query.getSingleResult();
     }
 }
