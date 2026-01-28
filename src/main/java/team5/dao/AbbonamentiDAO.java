@@ -62,11 +62,11 @@ public class AbbonamentiDAO {
     }
 
     //VERIFICA VALITIDA' ABBONAMENTO BY NUM TESSERA:
-    public void checkValidityByTessera(UUID idTessera) {
+    public void checkValidityByTessera(String idTessera) {
         Abbonamento found = em.createQuery(
                         "SELECT a FROM Abbonamento a WHERE a.tessera.idTessera = :idTessera",
                         Abbonamento.class)
-                .setParameter("idTessera", idTessera)
+                .setParameter("idTessera", UUID.fromString(idTessera))
                 .getSingleResult();
         if (found != null) {
             if (found.getData_scadenza().isAfter(LocalDate.now())) {
@@ -78,7 +78,7 @@ public class AbbonamentiDAO {
     }
 
     //EMISSIONE Abbonamenti
-    public void emissioneAbbonamenti(LocalDate data_emissione, double costo, Periodicita periodicita, Rivenditore rivenditore, Tessera tessera){
+    public void emissioneAbbonamenti(LocalDate data_emissione, double costo, Periodicita periodicita, Rivenditore rivenditore, Tessera tessera) {
         EntityTransaction tr = em.getTransaction();
 
         try {
@@ -114,6 +114,8 @@ public class AbbonamentiDAO {
         query.setParameter("rivenditore", rivenditore);
         query.setParameter("inizio", inizio);
         query.setParameter("fine", fine);
+
+        System.out.println("Nel punto vendita " + rivenditore + " dal " + inizio + " al " + fine + " sono stati emessi " + query.getSingleResult() + " abbonamenti");
 
         return query.getSingleResult();
     }

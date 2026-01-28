@@ -5,19 +5,19 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name="percorrenze")
+@Table(name = "percorrenze")
 public class Percorrenza {
     @Id
     @GeneratedValue
     private UUID id_percorrenza;
 
     @ManyToOne
-    @JoinColumn(name="id_mezzo")
-    private Mezzo id_mezzo;
+    @JoinColumn(name = "id_mezzo")
+    private Mezzo mezzo;
 
     @ManyToOne
-    @JoinColumn(name="id_tratta")
-    private Tratta id_tratta;
+    @JoinColumn(name = "id_tratta")
+    private Tratta tratta;
 
     @Column
     private int tempo_effettivo_minuti;
@@ -26,17 +26,17 @@ public class Percorrenza {
     }
 
     public Percorrenza(Mezzo mezzo, Tratta tratta, int tempo_effettivo_minuti) {
-        this.id_mezzo = mezzo;
-        this.id_tratta = tratta;
+        this.mezzo = mezzo;
+        this.tratta = tratta;
         this.tempo_effettivo_minuti = tempo_effettivo_minuti;
     }
 
     public Mezzo getId_mezzo() {
-        return id_mezzo;
+        return mezzo;
     }
 
     public void setId_mezzo(Mezzo id_mezzo) {
-        this.id_mezzo = id_mezzo;
+        this.mezzo = id_mezzo;
     }
 
     public UUID getId_percorrenza() {
@@ -48,11 +48,11 @@ public class Percorrenza {
     }
 
     public Tratta getId_tratta() {
-        return id_tratta;
+        return tratta;
     }
 
     public void setId_tratta(Tratta id_tratta) {
-        this.id_tratta = id_tratta;
+        this.tratta = id_tratta;
     }
 
     public int getTempo_effettivo_minuti() {
@@ -66,9 +66,9 @@ public class Percorrenza {
     @Override
     public String toString() {
         return "Percorrenza{" +
-                "id_mezzo=" + id_mezzo +
+                "id_mezzo=" + mezzo +
                 ", id_percorrenza=" + id_percorrenza +
-                ", id_tratta=" + id_tratta +
+                ", id_tratta=" + tratta +
                 ", tempo_effettivo_minuti=" + tempo_effettivo_minuti +
                 '}';
     }

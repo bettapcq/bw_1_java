@@ -71,7 +71,9 @@ public class BigliettoDAO {
     public int numeroBigliettiVidimatiPerMezzo(Mezzo mezzo) {
         TypedQuery<Integer> query = entityManager.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.mezzi = :mezzo", Integer.class);
         query.setParameter("mezzo", mezzo);
+        System.out.println("Su questo mezzo sono stati vidimati " + query.getSingleResult() + " biglietti");
         return query.getSingleResult();
+
     }
 
     // numero biglietti vidimati in un periodo
@@ -80,6 +82,8 @@ public class BigliettoDAO {
                 "SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.data_validazione >= :inizio", Integer.class);
 
         query.setParameter("inizio", inizio);
+
+        System.out.println("Dal " + inizio + " sono stati vidimati " + query.getSingleResult() + " biglietti");
         return query.getSingleResult();
     }
 
@@ -118,6 +122,8 @@ public class BigliettoDAO {
         query.setParameter("rivenditore", rivenditore);
         query.setParameter("inizio", inizio);
         query.setParameter("fine", fine);
+
+        System.out.println("Nel punto vendita " + rivenditore + " dal " + inizio + " al " + fine + " sono stati emessi " + query.getSingleResult() + " biglietti");
 
         return query.getSingleResult();
     }

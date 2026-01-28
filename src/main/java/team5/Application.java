@@ -84,6 +84,7 @@ public class Application {
 //
         Manutenzione manutenzione1 = new Manutenzione(LocalDate.of(2026, 1, 7), LocalDate.of(2026, 1, 20), mezzo1DB, Tipologia.CARROZZERIA);
         Manutenzione manutenzione2 = new Manutenzione(LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 17), mezzo2DB, Tipologia.MOTORE);
+        Manutenzione manutenzione3 = new Manutenzione(LocalDate.of(2026, 1, 27), LocalDate.of(2026, 1, 28), mezzo2DB, Tipologia.CARROZZERIA);
 //
 
 //        m.save(mezzo1);
@@ -92,6 +93,8 @@ public class Application {
 //
 //        md.save(manutenzione1);
 //        md.save(manutenzione2);
+//        md.save(manutenzione3);
+
         Tratta tratta1 = new Tratta(30, "via per di qua", "via qua", 60);
         Tratta tratta2 = new Tratta(15, "via per di si", "via la", 30);
 
@@ -99,16 +102,19 @@ public class Application {
 //        tr.save(tratta2);
 //
         Tratta tratta1DB = tr.findbyID("33f91f88-ff55-4d9b-bdd4-2f4364e7be51");
+        Tratta tratta2DB = tr.findbyID("958970ab-7b51-412b-9ee6-b83ba2402112");
 
         Percorrenza percorrenza1 = new Percorrenza(mezzo1DB, tratta1DB, 40);
+        Percorrenza percorrenza2 = new Percorrenza(mezzo2DB, tratta2DB, 40);
+        Percorrenza percorrenza3 = new Percorrenza(mezzo1DB, tratta2DB, 40);
 
-//        p.savePerc(percorrenza1);
+//        p.savePerc(percorrenza2);
+//        p.savePerc(percorrenza3);
 
         // TEST METODI:
         //1)vidimazione:
-//        b.vidimazioneBiglietto("b743", null);
 //        try {
-//            b.vidimazioneBiglietto("b643", null);
+//            b.vidimazioneBiglietto("B-0006", mezzo1DB);
 //        } catch (AlreadyEndorsedTicket ex) {
 //            System.out.println(ex);
 //
@@ -121,7 +127,29 @@ public class Application {
         //3)emissione abbonamento:
         //  a.emissioneAbbonamenti(LocalDate.of(2025, 11, 25), 120.00, Periodicita.MENSILE, rivenditore3DB, tessera1DB);
 
-        //4)
+        //4)validita abbonamento da tessera
+//        a.checkValidityByTessera("3281ff53-250c-4865-91c0-53bbe8fbc65d");
+
+        //5)periodi manutenzione:
+//        md.periodiManutenzione("dc872fb3-bdfd-4c0c-bc20-52c90d8d055e");
+
+        //6)num biglietti vidimatisu mezzo o per periodo:
+//        b.numeroBigliettiVidimatiPerMezzo(mezzo1DB);
+//        b.numeroBigliettiVidimatiDaData(LocalDate.of(2020, 1, 1));
+
+        //7)calcolo tempo effettivo tratta da mezzo:
+//        p.findTempoEffettivoPercorrenza("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
+        //p.findTempoEffettivoPercorrenzaMedio("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
+
+        //8)numero percorrenze:
+//        p.findNumeroPercorrenze("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
+
+//        9)num biglietti e abb, emessi in un periodo, da un rivend:
+//        b.numeroBigliettiEmessiPerRivenditoriEPerPeriodo(rivenditore1DB, LocalDate.of(2025, 1, 1), LocalDate.now());
+//        b.numeroBigliettiEmessiPerRivenditoriEPerPeriodo(rivenditore3DB, LocalDate.of(2025, 1, 1), LocalDate.now());
+//        a.numeroAbbonamentiEmessiPerRivenditoriEPerPeriodo(rivenditore1DB, LocalDate.of(2025, 1, 1), LocalDate.now());
+//        a.numeroAbbonamentiEmessiPerRivenditoriEPerPeriodo(rivenditore3DB, LocalDate.of(2025, 1, 1), LocalDate.now());
+//
 
         em.close();
         emf.close();
