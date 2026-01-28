@@ -57,21 +57,21 @@ public class Application {
         Tessera tessera1 = new Tessera(LocalDate.now(), utente1);
         Tessera tessera2 = new Tessera(LocalDate.of(2026, 01, 27), utente2);
 //
-    u.save(utente1);
+        u.save(utente1);
         u.save(utente2);
         t.save(tessera1);
         t.save(tessera2);
 
         Rivenditore rivenditore1DB = r.findById("1142a8ed-ec2c-44e3-8b86-e4d45efac2df");
-         Rivenditore rivenditore3DB = r.findById("4571f0e4-6151-46db-be51-cbf9d7d8d2eb");
+        Rivenditore rivenditore3DB = r.findById("4571f0e4-6151-46db-be51-cbf9d7d8d2eb");
         Tessera tessera1DB = t.getById("3281ff53-250c-4865-91c0-53bbe8fbc65d");
         Tessera tessera2DB = t.getById("6ac658d2-9765-4662-a3d3-13e3b40eff21");
 
         Abbonamento abbonamento1 = new Abbonamento(LocalDate.now(), 50.00, "a234", Periodicita.SETTIMANALE, rivenditore1DB, tessera1DB);
         Abbonamento abbonamento2 = new Abbonamento(LocalDate.of(2026, 2, 28), 120.00, "a237", Periodicita.MENSILE, rivenditore3DB, tessera2DB);
 //
-        a.save(abbonamento1);
-        a.save(abbonamento2);
+        // a.save(abbonamento1);
+       // a.save(abbonamento2);
 //
         Mezzo mezzo1 = new Mezzo(40, LocalDate.of(2025, 01, 01), null, TipoMezzo.AUTOBUS);
         Mezzo mezzo2 = new Mezzo(50, LocalDate.of(2024, 01, 01), null, TipoMezzo.TRAM);
@@ -87,29 +87,29 @@ public class Application {
         Manutenzione manutenzione3 = new Manutenzione(LocalDate.of(2026, 1, 27), LocalDate.of(2026, 1, 28), mezzo2DB, Tipologia.CARROZZERIA);
 //
 
-//        m.save(mezzo1);
-//        m.save(mezzo2);
-//        m.save(mezzo3);
+       // m.save(mezzo1);
+       // m.save(mezzo2);
+       // m.save(mezzo3);
 //
-//        md.save(manutenzione1);
-//        md.save(manutenzione2);
-//        md.save(manutenzione3);
+        md.save(manutenzione1);
+        md.save(manutenzione2);
+        md.save(manutenzione3);
 
         Tratta tratta1 = new Tratta(30, "via per di qua", "via qua", 60);
         Tratta tratta2 = new Tratta(15, "via per di si", "via la", 30);
 
-//        tr.save(tratta1);
-//        tr.save(tratta2);
+        //tr.save(tratta1);
+        //tr.save(tratta2);
 //
-       //  Tratta tratta1DB = tr.findbyID("33f91f88-ff55-4d9b-bdd4-2f4364e7be51");
-        //Tratta tratta2DB = tr.findbyID("958970ab-7b51-412b-9ee6-b83ba2402112");
+        Tratta tratta1DB = tr.findbyID("33f91f88-ff55-4d9b-bdd4-2f4364e7be51");
+        Tratta tratta2DB = tr.findbyID("958970ab-7b51-412b-9ee6-b83ba2402112");
 
-      //  Percorrenza percorrenza1 = new Percorrenza(mezzo1DB, tratta1DB, 40);
-      //  Percorrenza percorrenza2 = new Percorrenza(mezzo2DB, tratta2DB, 40);
-      //  Percorrenza percorrenza3 = new Percorrenza(mezzo1DB, tratta2DB, 40);
+        Percorrenza percorrenza1 = new Percorrenza(mezzo1DB, tratta1DB, 40);
+        Percorrenza percorrenza2 = new Percorrenza(mezzo2DB, tratta2DB, 40);
+        Percorrenza percorrenza3 = new Percorrenza(mezzo1DB, tratta2DB, 40);
 
-//        p.savePerc(percorrenza2);
-//        p.savePerc(percorrenza3);
+       // p.savePerc(percorrenza2);
+       // p.savePerc(percorrenza3);
 
         // TEST METODI:
         //1)vidimazione:
@@ -119,35 +119,35 @@ public class Application {
 //            System.out.println(ex);
 //
 //        //2)emissione biglietto:
-//        b.emissioneBiglietti(LocalDate.now(), 9.20, rivenditore3DB);
-//        b.emissioneBiglietti(LocalDate.of(2025, 11, 25), 5.70, rivenditore3DB);
-//        b.emissioneBiglietti(LocalDate.of(2024, 3, 10), 9.40, mezzo2DB, rivenditore1DB);
+        b.emissioneBiglietti(LocalDate.now(), 9.20, rivenditore3DB);
+        b.emissioneBiglietti(LocalDate.of(2025, 11, 25), 5.70, rivenditore3DB);
+        b.emissioneBiglietti(LocalDate.of(2024, 3, 10), 9.40,  rivenditore1DB);
 
         //3)emissione abbonamento:
-        //  a.emissioneAbbonamenti(LocalDate.of(2025, 11, 25), 120.00, Periodicita.MENSILE, rivenditore3DB, tessera1DB);
+          a.emissioneAbbonamenti(LocalDate.of(2025, 11, 25), 120.00, Periodicita.MENSILE, rivenditore3DB, tessera1DB);
 
         //4)validita abbonamento da tessera
-//        a.checkValidityByTessera("3281ff53-250c-4865-91c0-53bbe8fbc65d");
+        a.checkValidityByTessera("3281ff53-250c-4865-91c0-53bbe8fbc65d");
 
         //5)periodi manutenzione:
-//        md.periodiManutenzione("dc872fb3-bdfd-4c0c-bc20-52c90d8d055e");
+        md.periodiManutenzione("dc872fb3-bdfd-4c0c-bc20-52c90d8d055e");
 
         //6)num biglietti vidimatisu mezzo o per periodo:
-//        b.numeroBigliettiVidimatiPerMezzo(mezzo1DB);
-//        b.numeroBigliettiVidimatiDaData(LocalDate.of(2020, 1, 1));
+        b.numeroBigliettiVidimatiPerMezzo(mezzo1DB);
+        b.numeroBigliettiVidimatiDaData(LocalDate.of(2020, 1, 1));
 
         //7)calcolo tempo effettivo tratta da mezzo:
-//        p.findTempoEffettivoPercorrenza("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
-        //p.findTempoEffettivoPercorrenzaMedio("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
+        p.findTempoEffettivoPercorrenza("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
+        p.findTempoEffettivoPercorrenzaMedio("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
 
         //8)numero percorrenze:
-//        p.findNumeroPercorrenze("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
+        p.findNumeroPercorrenze("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
 
 //        9)num biglietti e abb, emessi in un periodo, da un rivend:
-//        b.numeroBigliettiEmessiPerRivenditoriEPerPeriodo(rivenditore1DB, LocalDate.of(2025, 1, 1), LocalDate.now());
-//        b.numeroBigliettiEmessiPerRivenditoriEPerPeriodo(rivenditore3DB, LocalDate.of(2025, 1, 1), LocalDate.now());
-//        a.numeroAbbonamentiEmessiPerRivenditoriEPerPeriodo(rivenditore1DB, LocalDate.of(2025, 1, 1), LocalDate.now());
-//        a.numeroAbbonamentiEmessiPerRivenditoriEPerPeriodo(rivenditore3DB, LocalDate.of(2025, 1, 1), LocalDate.now());
+        b.numeroBigliettiEmessiPerRivenditoriEPerPeriodo(rivenditore1DB, LocalDate.of(2025, 1, 1), LocalDate.now());
+        b.numeroBigliettiEmessiPerRivenditoriEPerPeriodo(rivenditore3DB, LocalDate.of(2025, 1, 1), LocalDate.now());
+        a.numeroAbbonamentiEmessiPerRivenditoriEPerPeriodo(rivenditore1DB, LocalDate.of(2025, 1, 1), LocalDate.now());
+        a.numeroAbbonamentiEmessiPerRivenditoriEPerPeriodo(rivenditore3DB, LocalDate.of(2025, 1, 1), LocalDate.now());
 //
 
         em.close();
