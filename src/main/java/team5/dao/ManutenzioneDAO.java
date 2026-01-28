@@ -72,10 +72,10 @@ public class ManutenzioneDAO {
                 .setParameter("fine", dataFinePeriodo)
                 .getResultList();
 
-        long giorniTotaliPeriodo = ChronoUnit.DAYS.between(dataInizioPeriodo, dataFinePeriodo);
+        int giorniTotaliPeriodo = Math.toIntExact(ChronoUnit.DAYS.between(dataInizioPeriodo, dataFinePeriodo));
         if (giorniTotaliPeriodo <= 0) return 0.0;
 
-        long giorniInManutenzione = 0;
+        int giorniInManutenzione = 0;
 
         for (Manutenzione m : lista) {
             LocalDate fine = (m.getFine_manutenzione() != null) ? m.getFine_manutenzione() : LocalDate.now();
