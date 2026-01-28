@@ -9,24 +9,19 @@ import java.util.UUID;
 @Table(name = "biglietti")
 public class Biglietto {
 
+    @Column(name = "data_emissione")
+    LocalDate data_emissione;
+    @Column(name = "costo")
+    Double costo;
+    @Column(name = "codice_univco", unique = true)
+    String codice_univoco;
+    @Column(name = "data_validazione")
+
+    LocalDate data_validazione;
     @Id
     @GeneratedValue
     @Column(name = "id_biglietto")
     private UUID idBiglietto;
-
-    @Column(name = "data_emissione")
-    LocalDate data_emissione;
-
-    @Column(name = "costo")
-    int costo;
-
-    @Column(name = "codice_univco", unique = true)
-    String codice_univoco;
-
-    @Column(name = "data_validazione")
-
-    LocalDate data_validazione;
-
     @ManyToOne
     @JoinColumn(name = "id_mezzo")
     private Mezzo mezzi;
@@ -35,10 +30,10 @@ public class Biglietto {
     @JoinColumn(name = "id_rivenditore")
     private Rivenditore rivenditore;
 
-    public Biglietto(){
+    public Biglietto() {
     }
 
-    public Biglietto(LocalDate data_emissione, int costo, String codice_univoco,  Rivenditore rivenditore) {
+    public Biglietto(LocalDate data_emissione, Double costo, String codice_univoco, Rivenditore rivenditore) {
         this.data_emissione = data_emissione;
         this.costo = costo;
         this.codice_univoco = codice_univoco;
@@ -46,7 +41,6 @@ public class Biglietto {
         this.mezzi = null;
         this.rivenditore = rivenditore;
     }
-
 
 
     public UUID getIdBiglietto() {
@@ -61,11 +55,11 @@ public class Biglietto {
         this.data_emissione = data_emissione;
     }
 
-    public int getCosto() {
+    public Double getCosto() {
         return costo;
     }
 
-    public void setCosto(int costo) {
+    public void setCosto(Double costo) {
         this.costo = costo;
     }
 
