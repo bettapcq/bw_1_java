@@ -13,11 +13,12 @@ import java.util.UUID;
 
 public class ManutenzioneDAO {
     private final EntityManager em;
+
     public ManutenzioneDAO(EntityManager em) {
         this.em = em;
     }
 
-    public void save(Manutenzione nuovaManutenzione){
+    public void save(Manutenzione nuovaManutenzione) {
         // 1.nuova transazione
         EntityTransaction transaction = em.getTransaction();
 
@@ -35,8 +36,8 @@ public class ManutenzioneDAO {
 
     }
 
-    public Manutenzione findbyID(UUID id_manutenzione){
-        Manutenzione found = em.find(Manutenzione.class,id_manutenzione);
+    public Manutenzione findbyID(UUID id_manutenzione) {
+        Manutenzione found = em.find(Manutenzione.class, id_manutenzione);
         if (found == null) throw new NotFoundException(id_manutenzione);
         return found;
     }
@@ -86,17 +87,18 @@ public class ManutenzioneDAO {
         double percentuale = ((double) giorniInManutenzione / giorniTotaliPeriodo) * 100;
         return Math.round(percentuale * 100.0) / 100.0;
     }
-    public void periodiManutenzione(UUID id_mezzo) {
+
+    public void periodiManutenzione(String id_mezzo) {
         Query query1 = em.createQuery(
                 "SELECT m.inizio_manutenzione FROM Manutenzione m WHERE m.mezzo_in_manutenzione.id_mezzo = :id_mezzo"
         );
-        query1.setParameter("id_mezzo", id_mezzo);
+        query1.setParameter("id_mezzo", UUID.fromString(id_mezzo));
         List<LocalDate> rslt1 = query1.getResultList();
 
         Query query2 = em.createQuery(
                 "SELECT m.fine_manutenzione FROM Manutenzione m WHERE m.mezzo_in_manutenzione.id_mezzo = :id_mezzo"
         );
-        query2.setParameter("id_mezzo", id_mezzo);
+        query2.setParameter("id_mezzo", UUID.fromString(id_mezzo));
         List<LocalDate> rslt2 = query2.getResultList();
 
         for (int i = 0; i < rslt1.size(); i++) {
