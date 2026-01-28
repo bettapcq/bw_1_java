@@ -19,7 +19,7 @@ public class Abbonamento {
     @Column(name = "costo")
     private Double costo;
     @Enumerated(EnumType.STRING)
-    @Column(name = "Periodicità", nullable = false)
+    @Column(name = "Periodicità")
     private Periodicita periodicita;
 
     @Column(name = "data_scadenza")
@@ -70,6 +70,9 @@ public class Abbonamento {
         return dataEmissione;
     }
 
+    public void setDataEmissione(LocalDate dataEmissione) {
+    }
+
     public Double getCosto() {
         return costo;
     }
@@ -90,12 +93,21 @@ public class Abbonamento {
         return codice_univoco;
     }
 
+    public void setCodice_univoco(String codice) {
+    }
+
     public Periodicita getPeriodicita() {
         return periodicita;
     }
 
+    public void setPeriodicita(Periodicita periodicita) {
+    }
+
     public Rivenditore getRivenditore() {
         return rivenditore;
+    }
+
+    public void setRivenditore(Rivenditore rivenditore) {
     }
 
     public LocalDate getData_scadenza() {
@@ -104,18 +116,6 @@ public class Abbonamento {
 
     public void setData_scadenza(LocalDate data_scadenza) {
         this.data_scadenza = data_scadenza;
-    }
-
-    public void setCodice_univoco(String codice) {
-    }
-
-    public void setPeriodicita(Periodicita periodicita) {
-    }
-
-    public void setRivenditore(Rivenditore rivenditore) {
-    }
-
-    public void setDataEmissione(LocalDate dataEmissione) {
     }
 
     @Override

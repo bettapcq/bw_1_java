@@ -5,25 +5,23 @@ import team5.entities.Biglietto;
 import team5.entities.Mezzo;
 import team5.entities.Rivenditore;
 import team5.exceptions.AlreadyEndorsedTicket;
-import team5.exceptions.NotFoundException;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 public class BigliettoDAO {
     private final EntityManager entityManager;
 
-    public BigliettoDAO(EntityManager entityManager){
+    public BigliettoDAO(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
     //SAVE BIGLIETTO
-    public void save(Biglietto newBiglietto){
+    public void save(Biglietto newBiglietto) {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(newBiglietto);
         transaction.commit();
-        System.out.println( "Il biglietto" +newBiglietto.getCodice_univoco()+ " stato salvato nel DB!!");
+        System.out.println("Il biglietto" + newBiglietto.getCodice_univoco() + " stato salvato nel DB!!");
     }
 
     //FIND BIGLIETTO CODICE_UNIVOCO
@@ -31,7 +29,7 @@ public class BigliettoDAO {
         try {
             TypedQuery<Biglietto> query =
                     entityManager.createQuery(
-                    "SELECT b FROM Biglietto b WHERE b.codice_univoco = :codice", Biglietto.class);
+                            "SELECT b FROM Biglietto b WHERE b.codice_univoco = :codice", Biglietto.class);
             query.setParameter("codice", codice_univoco);
 
             Biglietto biglietto = query.getSingleResult();
@@ -68,6 +66,7 @@ public class BigliettoDAO {
             System.out.println("il biglietto   " + codiceunivoco + " " + mezzo + " è stato vidimato ");
         }
     }
+
     //  numero biglietti vidimati su un mezzo
     public long numeroBigliettiVidimatiPerMezzo(Mezzo mezzo) {
         TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.mezzi = :mezzo", Long.class);
@@ -77,15 +76,15 @@ public class BigliettoDAO {
 
     // numero biglietti vidimati in un periodo
     public long numeroBigliettiVidimatiDaData(LocalDate inizio) {
-            TypedQuery<Long> query = entityManager.createQuery(
-                    "SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.data_validazione >= :inizio", Long.class);
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.data_validazione >= :inizio", Long.class);
 
-            query.setParameter("inizio", inizio);
-            return query.getSingleResult();
-        }
+        query.setParameter("inizio", inizio);
+        return query.getSingleResult();
+    }
 
     //EMISSIONE BIGLIETTI
-    public void emissioneBiglietti(LocalDate data_emissione, int costo, Mezzo mezzo, Rivenditore rivenditore){
+    public void emissioneBiglietti(LocalDate data_emissione, Double costo, Rivenditore rivenditore) {
         EntityTransaction tr = entityManager.getTransaction();
 
         try {
@@ -93,7 +92,6 @@ public class BigliettoDAO {
             Biglietto biglietto = new Biglietto();
             biglietto.setData_emissione(data_emissione);
             biglietto.setCosto(costo);
-            biglietto.setMezzi(mezzo);
             biglietto.setRivenditore(rivenditore);
 
             //GENERA UN CODICE UNIVOCO
@@ -105,15 +103,15 @@ public class BigliettoDAO {
             tr.commit();
             System.out.println("Biglietto emesso " + biglietto);
 
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             if (tr.isActive()) tr.rollback();
-            throw  e;
+            throw e;
         }
 
     }
 
     //NUMERO DI BIGLIETTI EMESSI DA UN PUNTO VENDITA E PER UN PERIODO DI TEMPO
-    public Long numeroBigliettiEmessiPerRivenditoriEPerPeriodo(Rivenditore rivenditore, LocalDate inizio, LocalDate fine){
+    public Long numeroBigliettiEmessiPerRivenditoriEPerPeriodo(Rivenditore rivenditore, LocalDate inizio, LocalDate fine) {
         TypedQuery<Long> query = entityManager.createQuery("" +
                 "SELECT COUNT(b) FROM Biglietto b " +
                 "WHERE b.rivenditore = :rivenditore AND b.data_emissione BETWEEN :inizio AND :fine", Long.class);
@@ -123,5 +121,5 @@ public class BigliettoDAO {
 
         return query.getSingleResult();
     }
-    }
+}
 
