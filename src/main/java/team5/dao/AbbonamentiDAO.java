@@ -91,7 +91,7 @@ public class AbbonamentiDAO {
             abbonamento.setDataEmissione(data_emissione);
 
             //GENERA UN CODICE UNIVOCO
-            int count = (Integer) em.createQuery("SELECT COUNT (a) FROM Abbonamento a").getSingleResult();
+            Long count = (Long) em.createQuery("SELECT COUNT (a) FROM Abbonamento a").getSingleResult();
             String codice = String.format("A-%04d", count + 1);
             abbonamento.setCodice_univoco(codice);
 
@@ -99,18 +99,18 @@ public class AbbonamentiDAO {
             tr.commit();
             System.out.println("Abbonamento emesso " + abbonamento);
 
-        }catch (RuntimeException e){
+        } catch (RuntimeException e) {
             if (tr.isActive()) tr.rollback();
-            throw  e;
+            throw e;
         }
 
     }
 
     //NUMERO DI ABBONAMENTI EMESSI DA UN PUNTO VENDITA E PER UN PERIODO DI TEMPO
-    public int numeroAbbonamentiEmessiPerRivenditoriEPerPeriodo(Rivenditore rivenditore, LocalDate inizio, LocalDate fine){
-        TypedQuery<Integer> query = em.createQuery("" +
+    public Long numeroAbbonamentiEmessiPerRivenditoriEPerPeriodo(Rivenditore rivenditore, LocalDate inizio, LocalDate fine) {
+        TypedQuery<Long> query = em.createQuery("" +
                 "SELECT COUNT(a) FROM Abbonamento a " +
-                "WHERE a.rivenditore = :rivenditore AND a.dataEmissione BETWEEN :inizio AND :fine", Integer.class);
+                "WHERE a.rivenditore = :rivenditore AND a.dataEmissione BETWEEN :inizio AND :fine", Long.class);
         query.setParameter("rivenditore", rivenditore);
         query.setParameter("inizio", inizio);
         query.setParameter("fine", fine);

@@ -68,22 +68,18 @@ public class BigliettoDAO {
     }
 
     //  numero biglietti vidimati su un mezzo
-    public int numeroBigliettiVidimatiPerMezzo(Mezzo mezzo) {
-        TypedQuery<Integer> query = entityManager.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.mezzi = :mezzo", Integer.class);
+    public long numeroBigliettiVidimatiPerMezzo(Mezzo mezzo) {
+        TypedQuery<Long> query = entityManager.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.mezzi = :mezzo", Long.class);
         query.setParameter("mezzo", mezzo);
-        System.out.println("Su questo mezzo sono stati vidimati " + query.getSingleResult() + " biglietti");
         return query.getSingleResult();
-
     }
 
     // numero biglietti vidimati in un periodo
-    public int numeroBigliettiVidimatiDaData(LocalDate inizio) {
-        TypedQuery<Integer> query = entityManager.createQuery(
-                "SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.data_validazione >= :inizio", Integer.class);
+    public long numeroBigliettiVidimatiDaData(LocalDate inizio) {
+        TypedQuery<Long> query = entityManager.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.data_validazione >= :inizio", Long.class);
 
         query.setParameter("inizio", inizio);
-
-        System.out.println("Dal " + inizio + " sono stati vidimati " + query.getSingleResult() + " biglietti");
         return query.getSingleResult();
     }
 
@@ -99,7 +95,7 @@ public class BigliettoDAO {
             biglietto.setRivenditore(rivenditore);
 
             //GENERA UN CODICE UNIVOCO
-            int count = (Integer) entityManager.createQuery("SELECT COUNT (b) FROM Biglietto b").getSingleResult();
+            Long count = (Long) entityManager.createQuery("SELECT COUNT (b) FROM Biglietto b").getSingleResult();
             String codice = String.format("B-%04d", count + 1);
             biglietto.setCodice_univoco(codice);
 
@@ -115,15 +111,13 @@ public class BigliettoDAO {
     }
 
     //NUMERO DI BIGLIETTI EMESSI DA UN PUNTO VENDITA E PER UN PERIODO DI TEMPO
-    public int numeroBigliettiEmessiPerRivenditoriEPerPeriodo(Rivenditore rivenditore, LocalDate inizio, LocalDate fine) {
-        TypedQuery<Integer> query = entityManager.createQuery("" +
+    public Long numeroBigliettiEmessiPerRivenditoriEPerPeriodo(Rivenditore rivenditore, LocalDate inizio, LocalDate fine) {
+        TypedQuery<Long> query = entityManager.createQuery("" +
                 "SELECT COUNT(b) FROM Biglietto b " +
-                "WHERE b.rivenditore = :rivenditore AND b.data_emissione BETWEEN :inizio AND :fine", Integer.class);
+                "WHERE b.rivenditore = :rivenditore AND b.data_emissione BETWEEN :inizio AND :fine", Long.class);
         query.setParameter("rivenditore", rivenditore);
         query.setParameter("inizio", inizio);
         query.setParameter("fine", fine);
-
-        System.out.println("Nel punto vendita " + rivenditore + " dal " + inizio + " al " + fine + " sono stati emessi " + query.getSingleResult() + " biglietti");
 
         return query.getSingleResult();
     }
