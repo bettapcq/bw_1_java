@@ -75,8 +75,6 @@ public class Application {
         Mezzo mezzo1DB = m.findbyID("0a2a00b7-634f-47a4-ba83-6e289ed253a0");
         Mezzo mezzo2DB = m.findbyID("c302b38b-e171-4bfb-8b5c-28ce60b854f7");
         Mezzo mezzo3DB = m.findbyID("faed769f-5f79-4f53-9e44-08971bbb19c7");
-
-
         Manutenzione manutenzione1 = new Manutenzione(LocalDate.of(2026,1,7),LocalDate.of(2026,1,20),mezzo1DB,Tipologia.CARROZZERIA);
         Manutenzione manutenzione2 = new Manutenzione(LocalDate.of(2026,1,6),LocalDate.of(2026,1,17),mezzo2DB,Tipologia.MOTORE);
 
@@ -86,17 +84,15 @@ public class Application {
         m.save(mezzo3);*/
 
 /*        md.save(manutenzione1);
-        md.save(manutenzione2);*/
+        md.save(manutenzione2);
         Tratta tratta1 = new Tratta(30, "via per di qua", "via qua", 60);
         Tratta tratta2 = new Tratta(15, "via per di si", "via la", 30);
-
+*/
 /*        tr.save(tratta1);
         tr.save(tratta2);*/
 
         Tratta tratta1DB = tr.findbyID("28c9bc10-7b26-4baf-be31-a54cc9f8cb98");
-
         Percorrenza percorrenza1 = new Percorrenza(mezzo1DB,tratta1DB,40);
-
         p.savePerc(percorrenza1);
 
 
