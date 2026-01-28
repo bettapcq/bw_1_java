@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import team5.entities.Manutenzione;
+import team5.entities.Mezzo;
 import team5.exceptions.NotFoundException;
 
 import java.time.LocalDate;
@@ -63,29 +64,63 @@ public class ManutenzioneDAO {
     }
     //percentuale manutenzione-servizio
 
-    public double getPercentualeManutenzioneMezzo(UUID idMezzo, LocalDate dataInizioPeriodo, LocalDate dataFinePeriodo) {
-        List<Manutenzione> lista = em.createQuery(
-                        "SELECT m FROM Manutenzione m WHERE m.mezzo_in_manutenzione.id_mezzo = :idMezzo " +
-                                "AND m.inizio_manutenzione >= :inizio AND (m.fine_manutenzione <= :fine OR m.fine_manutenzione IS NULL)",
-                        Manutenzione.class)
-                .setParameter("idMezzo", idMezzo)
-                .setParameter("inizio", dataInizioPeriodo)
-                .setParameter("fine", dataFinePeriodo)
-                .getResultList();
+    public void getPercentualeManutenzioneMezzo(Mezzo mezzo) {
+        Query query = em.createQuery(
+                "SELECT m FROM Manutenzione m WHERE m.mezzo_in_manutenzione.id_mezzo = :idMezzo");
+        query.setParameter("idMezzo", mezzo.getId_mezzo());
 
-        int giorniTotaliPeriodo = Math.toIntExact(ChronoUnit.DAYS.between(dataInizioPeriodo, dataFinePeriodo));
-        if (giorniTotaliPeriodo <= 0) return 0.0;
+        LocalDate dataInizioPeriodo = mezzo.getInizio_attivita();
+        LocalDate dataFinePeriodo = mezzo.getFine_attivita();
+        List<Manutenzione> listaM = query.getResultList();
 
-        int giorniInManutenzione = 0;
+        LocalDate dataOggi = LocalDate.now();
 
-        for (Manutenzione m : lista) {
-            LocalDate fine = (m.getFine_manutenzione() != null) ? m.getFine_manutenzione() : LocalDate.now();
-            giorniInManutenzione += ChronoUnit.DAYS.between(m.getInizio_manutenzione(), fine);
+        if (dataFinePeriodo == null) {
+            dataFinePeriodo = dataOggi;
         }
 
+//        LocalDate dataInizioMan = manutenzione.getInizio_manutenzione();
+//                LocalDate dataFineMan = manutenzione.getFine_manutenzione();
+//
+//                if(dataFineMan == null){
+//                    dataFineMan = dataOggi;
+//                }
+
+        List<Integer> totGgPerManutenzione = listaM.stream()
+                .map(manutenzione ->
+
+                        Math.toIntExact(ChronoUnit.DAYS.between(manutenzione.getInizio_manutenzione(), manutenzione.getFine_manutenzione() == null ? LocalDate.now() : manutenzione.getFine_manutenzione())))
+                .toList();
+
+        int totGgInManutenzione = totGgPerManutenzione.stream().reduce(0, (acc, gg) -> acc + gg);
+
+        int giorniTotaliAttività = Math.toIntExact(ChronoUnit.DAYS.between(dataInizioPeriodo, dataFinePeriodo));
+
+        int totGgInServizio = giorniTotaliAttività - totGgInManutenzione;
+
         // Calcolo percentuale
-        double percentuale = ((double) giorniInManutenzione / giorniTotaliPeriodo) * 100;
-        return Math.round(percentuale * 100.0) / 100.0;
+        double percentuale = ((double) totGgInManutenzione / giorniTotaliAttività) * 100;
+
+        System.out.println("Giorni totali in servizio: " + totGgInServizio);
+        System.out.println("Giorni totali in manutenzione: " + totGgInManutenzione);
+        System.out.println("Giorni totali di attività: " + giorniTotaliAttività);
+        System.out.println("Percentuale manutenzione-servizio: " + Math.round(percentuale * 100.0) / 100.0 + "%");
+
+// 1) per ogni manutenzione - il tot giorni trascorsi per quella manutenzione
+// 2) prendo tutti i totali delle manutenzioni (gg) - reduce
+//tot complessivo di tutte le manutenzioni della lista
+// tot gg attività di questo mezzo, e sottraggo il tot gg complessivi manutenzioni.
+//        int giorniTotaliPeriodo = Math.toIntExact(ChronoUnit.DAYS.between(dataInizioPeriodo, dataFinePeriodo));
+//        if (giorniTotaliPeriodo <= 0) return 0.0;
+//
+//        int giorniInManutenzione = 0;
+//
+//        for (Manutenzione m : lista) {
+//            LocalDate fine = (m.getFine_manutenzione() != null) ? m.getFine_manutenzione() : LocalDate.now();
+//            giorniInManutenzione += ChronoUnit.DAYS.between(m.getInizio_manutenzione(), fine);
+//        }
+//
+//
     }
 
     public void periodiManutenzione(String id_mezzo) {
