@@ -38,11 +38,6 @@ public class MezzoDAO {
         return found;
     }
 
-    public Mezzo findbyCU(String codice_univoco) {
-        Mezzo found = em.find(Mezzo.class, codice_univoco);
-        if (found == null) throw new NotFoundException(found.getId_mezzo());
-        return found;
-    }
 
     public void findByIdAndDelete(String id_mezzo) {
         // 1. Cerco lo studente
