@@ -58,12 +58,7 @@ public class Application {
             }
         }
         System.out.println("Programma terminato");
-        scanner.close();
-        em.close();
-        emf.close();
 
-    }
-}
 //        Rivenditore rivenditore1 = new RivenditoreAutorizzato(394762938, "via da qua", LocalTime.now(), LocalTime.of(17, 0));
 //        Rivenditore rivenditore2 = new RivenditoreAutorizzato(394754938, "via di li", LocalTime.now(), LocalTime.of(17, 0));
 //        Rivenditore rivenditore3 = new DistributtoreAutomatico("Via di la", Stato.ATTIVO);
@@ -73,9 +68,9 @@ public class Application {
 //        Biglietto biglietto3 = new Biglietto(LocalDate.now(), 10.00, "b743", rivenditore3);
 //        Biglietto biglietto4 = new Biglietto(LocalDate.now(), 10.00, "b843", rivenditore3);
 //
-//        Rivenditore rivenditore4DB = r.findById("67f3bdce-3e42-479e-a53c-ad0663f50830");
-//
-//        Biglietto biglietto5 = new Biglietto(LocalDate.of(2025, 3, 4), 10.00, "b943", rivenditore4DB);
+//        Rivenditore rivenditore4DB = r.findById("495a8da2-c7e8-409c-97b7-141e8e87ff77");
+
+//       Biglietto biglietto5 = new Biglietto(LocalDate.of(2025, 3, 4), 10.00, "b943", rivenditore4DB);
 //        Biglietto biglietto6 = new Biglietto(LocalDate.of(2025, 7, 11), 10.00, "b944", rivenditore4DB);
 //
 //        System.out.println("Hello World!1 ");
@@ -90,29 +85,29 @@ public class Application {
 //        r.save(rivenditore4);
 //        b.save(biglietto5);
 //        b.save(biglietto6);
-
+//
 //        Utente utente1 = new Utente("Giacomo", "Poretti", LocalDate.of(1992, 06, 14));
 //        Utente utente2 = new Utente("Aldo", "Baglio", LocalDate.of(1982, 07, 19));
 //
 //        Tessera tessera1 = new Tessera(LocalDate.now(), utente1);
 //        Tessera tessera2 = new Tessera(LocalDate.of(2026, 01, 27), utente2);
-
+//
 //        u.save(utente1);
 //        u.save(utente2);
 //        t.save(tessera1);
 //        t.save(tessera2);
 
-//        Rivenditore rivenditore1DB = r.findById("696eb568-23da-46da-abf2-dd3cc6bc3ee8");
-//        Rivenditore rivenditore3DB = r.findById("70d739d3-7bae-4f46-a56d-a68d813a2daf");
-//        Tessera tessera1DB = t.getById("a3197b44-6b45-4149-a72c-cdf6f6335797");
-//        Tessera tessera2DB = t.getById("2acf6b7c-4331-4d5b-b6fb-c9d744b44fe3");
+//        Rivenditore rivenditore1DB = r.findById("191ca50f-b8ca-4a16-aedd-5111657664b0");
+//        Rivenditore rivenditore3DB = r.findById("8d397b00-4433-443b-9a3e-27f0040633ac");
+//        Tessera tessera1DB = t.getById("6eb6ab54-119b-4434-b789-32d31ae7ef82");
+//        Tessera tessera2DB = t.getById("b08a2cde-44b6-4dd7-99c2-ece889be8b5a");
 //
 //        Abbonamento abbonamento1 = new Abbonamento(LocalDate.now(), 50.00, "a234", Periodicita.SETTIMANALE, rivenditore1DB, tessera1DB);
 //        Abbonamento abbonamento2 = new Abbonamento(LocalDate.of(2026, 2, 28), 120.00, "a237", Periodicita.MENSILE, rivenditore3DB, tessera2DB);
 //
 //        a.save(abbonamento1);
 //        a.save(abbonamento2);
-
+//
 //        Mezzo mezzo1 = new Mezzo(40, LocalDate.of(2025, 01, 01), null, TipoMezzo.AUTOBUS);
 //        Mezzo mezzo2 = new Mezzo(50, LocalDate.of(2024, 01, 01), null, TipoMezzo.TRAM);
 //        Mezzo mezzo3 = new Mezzo(50, LocalDate.of(2022, 01, 01), LocalDate.of(2026, 01, 01), TipoMezzo.TRAM);
@@ -121,29 +116,29 @@ public class Application {
 //        m.save(mezzo2);
 //        m.save(mezzo3);
 
-//        Mezzo mezzo1DB = m.findbyID("2017f3a8-2109-49a1-a0a9-c8a176ae280d");
-//        Mezzo mezzo2DB = m.findbyID("dbebd46a-003f-489c-b0c5-f5f7cd92d14c");
-//        Mezzo mezzo3DB = m.findbyID("a0ecca98-9578-43a4-9c6c-6edbc82d3754");
-//
+//        Mezzo mezzo1DB = m.findbyID("b0f92df1-f381-4082-87c5-e1e3bcfc8b07");
+//        Mezzo mezzo3DB = m.findbyID("47c59e83-cc96-4a4e-bede-e0a9b9daecc5");
+//        Mezzo mezzo2DB = m.findbyID("88e93e09-ef12-45e8-a644-98640b28426d");
+////
 //        Manutenzione manutenzione1 = new Manutenzione(LocalDate.of(2026, 1, 7), LocalDate.of(2026, 1, 20), mezzo1DB, Tipologia.CARROZZERIA);
-//        Manutenzione manutenzione2 = new Manutenzione(LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 17), mezzo2DB, Tipologia.MOTORE);
-//        Manutenzione manutenzione3 = new Manutenzione(LocalDate.of(2026, 1, 27), LocalDate.of(2026, 1, 28), mezzo2DB, Tipologia.CARROZZERIA);
-//        Manutenzione manutenzione4 = new Manutenzione(LocalDate.of(2023, 1, 27), LocalDate.of(2023, 1, 28), mezzo3DB, Tipologia.FRENI);
+//        Manutenzione manutenzione2 = new Manutenzione(LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 17), mezzo3DB, Tipologia.MOTORE);
+//        Manutenzione manutenzione3 = new Manutenzione(LocalDate.of(2026, 1, 27), LocalDate.of(2026, 1, 28), mezzo3DB, Tipologia.CARROZZERIA);
+//        Manutenzione manutenzione4 = new Manutenzione(LocalDate.of(2023, 1, 27), LocalDate.of(2023, 1, 28), mezzo2DB, Tipologia.FRENI);
 //        Manutenzione manutenzione5 = new Manutenzione(LocalDate.of(2026, 1, 27), LocalDate.now(), mezzo3DB, Tipologia.FRENI);
-
+//
 //        md.save(manutenzione1);
 //        md.save(manutenzione2);
 //        md.save(manutenzione3);
 //        md.save(manutenzione4);
-
+//
 //        Tratta tratta1 = new Tratta(30, "via per di qua", "via qua", 60);
 //        Tratta tratta2 = new Tratta(15, "via per di si", "via la", 30);
 //
 //        tr.save(tratta1);
 //        tr.save(tratta2);
 
-//        Tratta tratta1DB = tr.findbyID("bac492f1-12c6-405e-88cb-1ff90bb929bf");
-//        Tratta tratta2DB = tr.findbyID("5c85d281-2a69-480e-8ff6-d45b73d03265");
+//        Tratta tratta1DB = tr.findbyID("40d5bfdc-c252-4e97-9532-4a67fb334bac");
+//        Tratta tratta2DB = tr.findbyID("4d6ed740-bc2e-4a0c-8bb7-736b551bafdd");
 //
 //        Percorrenza percorrenza1 = new Percorrenza(mezzo1DB, tratta1DB, 40);
 //        Percorrenza percorrenza2 = new Percorrenza(mezzo2DB, tratta2DB, 40);
@@ -193,3 +188,10 @@ public class Application {
 
 //10) EXTRA: PERCENTUALE MANUTENZIONE - SERVIZIO:
 //        md.getPercentualeManutenzioneMezzo(mezzo1DB);
+
+        scanner.close();
+        em.close();
+        emf.close();
+
+    }
+}

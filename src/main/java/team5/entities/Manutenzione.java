@@ -31,7 +31,11 @@ public class Manutenzione {
 
     public Manutenzione( LocalDate inizio_manutenzione, LocalDate fine_manutenzione, Mezzo mezzo_in_manutenzione, Tipologia tipologia) {
         this.fine_manutenzione = fine_manutenzione;
-        if ( fine_manutenzione.isAfter(mezzo_in_manutenzione.getFine_attivita()) ){
+        LocalDate fine_attivita = mezzo_in_manutenzione.getFine_attivita();
+        if (fine_attivita == null ){
+            fine_attivita = LocalDate.now();
+        }
+        if ( fine_manutenzione.isAfter(fine_attivita)){
             throw new ManutenzioneOutOfBound("La manutenzione viene effettuata dopo il giorno di fine attivita'. Questo non e'  possibile.");
         }
         this.inizio_manutenzione = inizio_manutenzione;
