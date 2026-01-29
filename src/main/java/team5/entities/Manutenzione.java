@@ -1,6 +1,7 @@
 package team5.entities;
 
 import jakarta.persistence.*;
+import team5.exceptions.ManutenzioneOutOfBound;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -30,6 +31,9 @@ public class Manutenzione {
 
     public Manutenzione( LocalDate inizio_manutenzione, LocalDate fine_manutenzione, Mezzo mezzo_in_manutenzione, Tipologia tipologia) {
         this.fine_manutenzione = fine_manutenzione;
+        if ( fine_manutenzione.isAfter(mezzo_in_manutenzione.getFine_attivita()) ){
+            throw new ManutenzioneOutOfBound("La manutenzione viene effettuata dopo il giorno di fine attivita'. Questo non e'  possibile.");
+        }
         this.inizio_manutenzione = inizio_manutenzione;
         this.mezzo_in_manutenzione = mezzo_in_manutenzione;
         this.tipologia = tipologia;
