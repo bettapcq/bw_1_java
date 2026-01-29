@@ -60,8 +60,8 @@ public class TessereDAO {
 
 
     //RINNOVO TESSERA
-    public void renewCard(UUID idTessera) {
-        Tessera found = em.find(Tessera.class, idTessera);
+    public void renewCard(String idTessera) {
+        Tessera found = em.find(Tessera.class, UUID.fromString(idTessera));
         if (found != null) {
             if (found.isAttiva()) {
                 System.out.println("La tessera è ancora attiva, scadrà il giorno: " + found.getData_scadenza());
@@ -70,6 +70,6 @@ public class TessereDAO {
                 found.setAttiva(true);
                 System.out.println("La tessera è stata rinnovata, la nuova data di scadenza è: " + found.getData_scadenza());
             }
-        } else throw new NotFoundException(idTessera);
+        } else throw new NotFoundException(UUID.fromString(idTessera));
     }
 }

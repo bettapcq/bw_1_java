@@ -2,7 +2,6 @@ package team5.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import team5.entities.Manutenzione;
 import team5.entities.Tratta;
 import team5.exceptions.NotFoundException;
 
@@ -10,11 +9,12 @@ import java.util.UUID;
 
 public class TrattaDAO {
     private final EntityManager em;
+
     public TrattaDAO(EntityManager em) {
         this.em = em;
     }
 
-    public void save(Tratta nuovaTratta){
+    public void save(Tratta nuovaTratta) {
         // 1.nuova transazione
         EntityTransaction transaction = em.getTransaction();
 
@@ -32,11 +32,12 @@ public class TrattaDAO {
 
     }
 
-    public Tratta findbyID(String id_tratta){
+    public Tratta findbyID(String id_tratta) {
         Tratta found = em.find(Tratta.class, UUID.fromString(id_tratta));
         if (found == null) throw new NotFoundException(UUID.fromString(id_tratta));
         return found;
     }
+
 
     public void findByIdAndDelete(String id_tratta) {
         // 1. Cerco lo studente

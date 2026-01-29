@@ -31,6 +31,13 @@ public class PercorrenzeDAO {
         return found;
     }
 
+    public List<Percorrenza> tutteLetratteDiUnMezzo(String id_mezzo) {
+        Query query = em.createQuery("SELECT p FROM Percorrenza p WHERE p.mezzo.id_mezzo = :id_mezzo");
+        query.setParameter("id_mezzo", UUID.fromString(id_mezzo));
+        List<Percorrenza> result = query.getResultList();
+        return result;
+    }
+
 
     public void findPercorrenzaByIdAndDelete(UUID id_percorrenza) {
         EntityTransaction transaction = em.getTransaction();
