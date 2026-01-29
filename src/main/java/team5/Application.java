@@ -8,6 +8,7 @@ import team5.entities.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Scanner;
 
 
 public class Application {
@@ -24,6 +25,45 @@ public class Application {
         MezzoDAO m = new MezzoDAO(em);
         PercorrenzeDAO p = new PercorrenzeDAO(em);
         TrattaDAO tr = new TrattaDAO(em);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Se sei un utente premi 1, se sei un amministratore premi 2. Per uscire premi 0.");
+        int input =0;
+        try{
+            input= Integer.parseInt(scanner.nextLine());
+        }
+        catch (NumberFormatException e){
+            System.out.println("Dovevi inserire un numero. Iniziallizzare nuovamente il menu' ");
+        }
+        while (input != 0){
+            switch (input){
+                case 1:{
+                    Menu.menu_utente();
+                    break;
+                }
+                case 2:{
+                    Menu.menu_amministratore();
+                    break;
+                }
+                default:{
+                    System.out.println("Per favore inserire uno dei numeri indicati nel menu'");
+                    try{
+                        input= Integer.parseInt(scanner.nextLine());
+                    }
+                    catch (NumberFormatException e){
+                        System.out.println("Dovevi inserire un numero ");
+                    }
+                    break;
+                }
+            }
+        }
+        System.out.println("Programma terminato");
+        scanner.close();
+        em.close();
+        emf.close();
+
+    }
+}
 //        Rivenditore rivenditore1 = new RivenditoreAutorizzato(394762938, "via da qua", LocalTime.now(), LocalTime.of(17, 0));
 //        Rivenditore rivenditore2 = new RivenditoreAutorizzato(394754938, "via di li", LocalTime.now(), LocalTime.of(17, 0));
 //        Rivenditore rivenditore3 = new DistributtoreAutomatico("Via di la", Stato.ATTIVO);
@@ -113,8 +153,8 @@ public class Application {
 //        p.savePerc(percorrenza2);
 //        p.savePerc(percorrenza3);
 
-        // TEST METODI:
-        //1)vidimazione:
+// TEST METODI:
+//1)vidimazione:
 //        try {
 //            b.vidimazioneBiglietto("B-0006", mezzo1DB);
 //        } catch (AlreadyEndorsedTicket ex) {
@@ -125,24 +165,24 @@ public class Application {
 //        b.emissioneBiglietti(LocalDate.of(2025, 11, 25), 5.70, rivenditore3DB);
 //        b.emissioneBiglietti(LocalDate.of(2024, 3, 10), 9.40, mezzo2DB, rivenditore1DB);
 
-        //3)emissione abbonamento:
+//3)emissione abbonamento:
 //        a.emissioneAbbonamenti(LocalDate.of(2025, 11, 25), 120.00, Periodicita.MENSILE, rivenditore3DB, tessera1DB);
 
-        //4)validita abbonamento da tessera
+//4)validita abbonamento da tessera
 //        a.checkValidityByTessera("3281ff53-250c-4865-91c0-53bbe8fbc65d");
 
-        //5)periodi manutenzione:
+//5)periodi manutenzione:
 //        md.periodiManutenzione("dc872fb3-bdfd-4c0c-bc20-52c90d8d055e");
 
-        //6)num biglietti vidimatisu mezzo o per periodo:
+//6)num biglietti vidimatisu mezzo o per periodo:
 //        b.numeroBigliettiVidimatiPerMezzo(mezzo1DB);
 //        b.numeroBigliettiVidimatiDaData(LocalDate.of(2020, 1, 1));
 
-        //7)calcolo tempo effettivo tratta da mezzo:
+//7)calcolo tempo effettivo tratta da mezzo:
 //        p.findTempoEffettivoPercorrenza("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
-        //p.findTempoEffettivoPercorrenzaMedio("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
+//p.findTempoEffettivoPercorrenzaMedio("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
 
-        //8)numero percorrenze:
+//8)numero percorrenze:
 //        p.findNumeroPercorrenze("33f91f88-ff55-4d9b-bdd4-2f4364e7be51", "22d92ce1-65d2-4468-a990-8aa723ad81d9");
 
 //        9)num biglietti e abb, emessi in un periodo, da un rivend:
@@ -151,12 +191,5 @@ public class Application {
 //        a.numeroAbbonamentiEmessiPerRivenditoriEPerPeriodo(rivenditore1DB, LocalDate.of(2025, 1, 1), LocalDate.now());
 //        a.numeroAbbonamentiEmessiPerRivenditoriEPerPeriodo(rivenditore3DB, LocalDate.of(2025, 1, 1), LocalDate.now());
 
-        //10) EXTRA: PERCENTUALE MANUTENZIONE - SERVIZIO:
+//10) EXTRA: PERCENTUALE MANUTENZIONE - SERVIZIO:
 //        md.getPercentualeManutenzioneMezzo(mezzo1DB);
-
-        em.close();
-        emf.close();
-
-
-    }
-}
