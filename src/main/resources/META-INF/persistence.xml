@@ -4,7 +4,7 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <!-- copiamo e incolliamo l'inizializzazione della persistence-->
     <!-- gli diamo un nome che è importante perché nel codice Java dovremo richiamarla per nome -->
-    <persistence-unit name="bw1javapu">
+    <persistence-unit name="bw1java">
         <!-- all'interno della unit andremmo a inserire l'elenco delle
         classi e le properties con le loro property (K V)  -->
         <class>team5.entities.Rivenditore</class>

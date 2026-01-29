@@ -78,9 +78,10 @@ public class BigliettoDAO {
     public long numeroBigliettiVidimatiDaData(LocalDate inizio) {
         TypedQuery<Long> query = entityManager.createQuery(
                 "SELECT COUNT(b) FROM Biglietto b WHERE b.data_validazione IS NOT NULL AND b.data_validazione >= :inizio", Long.class);
-
-        System.out.println("Dal " + inizio + " sono stati vidimati " + query.getSingleResult() + " biglietti");
         query.setParameter("inizio", inizio);
+        long risultato = query.getSingleResult();
+        System.out.println("Dal " + inizio + " sono stati vidimati " + risultato + " biglietti");
+
         return query.getSingleResult();
     }
 

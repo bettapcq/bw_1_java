@@ -4,13 +4,15 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import team5.dao.*;
-import team5.entities.Menu;
+import team5.entities.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 
 public class Application {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("bw1javapu");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("bw1java");
 
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
@@ -25,6 +27,9 @@ public class Application {
         TrattaDAO tr = new TrattaDAO(em);
         Menu menu = new Menu(em);
 
+
+
+        
         Scanner scanner = new Scanner(System.in);
         System.out.println("benvenuto nel gestionale trasporti! ");
         System.out.println("1. Menu utente");

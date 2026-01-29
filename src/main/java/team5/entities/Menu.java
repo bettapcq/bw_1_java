@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class Menu {
 
+
     static Scanner scanner = new Scanner(System.in);
     public EntityManager em;
     TrattaDAO trD;
@@ -272,7 +273,6 @@ public class Menu {
 
             input = 0;
             try {
-                System.out.println("Integer.parseInt(scanner.nextLine()");
                 input = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Dovevi inserire un numero. Inizializzare nuovamente il menu' ");
