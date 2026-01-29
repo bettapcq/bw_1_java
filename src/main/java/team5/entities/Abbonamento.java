@@ -71,6 +71,7 @@ public class Abbonamento {
     }
 
     public void setDataEmissione(LocalDate dataEmissione) {
+        this.dataEmissione = dataEmissione;
     }
 
     public Double getCosto() {
@@ -93,7 +94,8 @@ public class Abbonamento {
         return codice_univoco;
     }
 
-    public void setCodice_univoco(String codice) {
+    public void setCodice_univoco(String codice_univoco) {
+        this.codice_univoco = codice_univoco;
     }
 
     public Periodicita getPeriodicita() {
@@ -123,9 +125,13 @@ public class Abbonamento {
     @Override
     public String toString() {
         return "Abbonamento{" +
-                "idAbbonamento=" + idAbbonamento +
+                "codice_univoco='" + codice_univoco + '\'' +
+                ", idAbbonamento=" + idAbbonamento +
                 ", dataEmissione=" + dataEmissione +
                 ", costo=" + costo +
+                ", periodicita=" + periodicita +
+                ", data_scadenza=" + data_scadenza +
+                ", rivenditore=" + rivenditore +
                 ", tessera=" + tessera +
                 '}';
     }

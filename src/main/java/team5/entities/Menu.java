@@ -19,6 +19,9 @@ public class Menu {
     PercorrenzeDAO pe;
     RivenditoreDAO rv;
     BigliettoDAO bt;
+    MezzoDAO me;
+    UtenteDAO ut;
+    ManutenzioneDAO ma;
 
     public Menu(EntityManager em) {
         this.em = em;
@@ -28,11 +31,14 @@ public class Menu {
         this.pe = new PercorrenzeDAO(em);
         this.rv = new RivenditoreDAO(em);
         this.bt = new BigliettoDAO(em);
+        this.me = new MezzoDAO(em);
+        this.ut = new UtenteDAO(em);
+        this.ma = new ManutenzioneDAO(em);
     }
 
 
     public void menu_amministratore() {
-        int input = -1;
+
         System.out.println("Menu Amministratore:  ");
         System.out.println("0. Torna indietro");
         System.out.println("1. Emissione biglietti ");
@@ -45,9 +51,8 @@ public class Menu {
         System.out.println("8. Periodi manutenzione mezzo");
         System.out.println("9. Percentuale di manutenzione");
         System.out.println("10. Modificare vita di un mezzo");
-
+        int input = 0;
         try {
-            System.out.println("Integer.parseInt(scanner.nextLine()");
             input = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             System.out.println("Dovevi inserire un numero. Inizializzare nuovamente il menu' ");
@@ -88,11 +93,14 @@ public class Menu {
                     break;
                 }
                 case 3: {
-                    System.out.println("Inserici l'ID della tessera che vuoi rinnovare: ");
-                    String tessera = scanner.nextLine();
+                    System.out.println("Inserici l'ID del mezzo: ");
+                    String mezzo = scanner.nextLine();
                     try {
-
-                        te.renewCard(tessera);
+                        Mezzo found = me.findbyID(mezzo);
+                        Long numBt = bt.numeroBigliettiVidimatiPerMezzo(found);
+                        System.out.println("Il num di biglietti vidimati per il mezzo: ");
+                        System.out.println(mezzo);
+                        System.out.println("è: " + numBt);
                     } catch (Exception e) {
                         System.out.println("Dovevi inserire un ID valido ");
                     }
@@ -133,10 +141,27 @@ public class Menu {
                     break;
                 }
             }
+            System.out.println("Menu Amministratore:  ");
+            System.out.println("0. Torna indietro");
+            System.out.println("1. Emissione biglietti ");
+            System.out.println("2. Emissione abbonamento ");
+            System.out.println("3. Numero biglietti vidimati su un mezzo ");
+            System.out.println("4. Biglietti emessi da un rivenditore");
+            System.out.println("5. Abbonamenti emessi da un rivenditore");
+            System.out.println("6. Numero di percorrenze e tempo medio");
+            System.out.println("7. Chiudere manutenzione di un mezzo");
+            System.out.println("8. Periodi manutenzione mezzo");
+            System.out.println("9. Percentuale di manutenzione");
+            System.out.println("10. Modificare vita di un mezzo");
+            input = 0;
+            try {
+                input = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Dovevi inserire un numero. Inizializzare nuovamente il menu' ");
+            }
         }
         System.out.println("menu chiuso!");
     }
-
 
 
     public void menu_utente() {
@@ -149,6 +174,7 @@ public class Menu {
         System.out.println("3. Rinnova la tessera ");
         System.out.println("4. Quali tratte percorre un mezzo");
         System.out.println("5. Quali mezzi passano per una tratta");
+        System.out.println("6. Vidima biglietto");
 
         int input = 0;
         try {
@@ -219,7 +245,15 @@ public class Menu {
                         System.out.println("Dovevi inserire un ID valido ");
                     }
                     break;
+                }
 
+                case 6: {
+                    System.out.println("Inserici il codice univoco del biglietto: ");
+                    String biglietto = scanner.nextLine();
+                    System.out.println("Inserici l'ID del mezzo: ");
+                    String id_mezzo = scanner.nextLine();
+                    Mezzo mezzo = me.findbyCU(id_mezzo);
+                    bt.vidimazioneBiglietto(biglietto, mezzo);
                 }
                 default: {
                     System.out.println("Inserisci un numero valido");

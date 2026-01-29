@@ -89,6 +89,20 @@ public class AbbonamentiDAO {
             abbonamento.setPeriodicita(periodicita);
             abbonamento.setRivenditore(rivenditore);
             abbonamento.setDataEmissione(data_emissione);
+            switch (periodicita) {
+                case SETTIMANALE:
+                    abbonamento.setData_scadenza(data_emissione.plusWeeks(1));
+                    break;
+                case MENSILE:
+                    abbonamento.setData_scadenza(data_emissione.plusMonths(1));
+                    break;
+                case ANNUALE:
+                    abbonamento.setData_scadenza(data_emissione.plusYears(1));
+                    break;
+                default:
+                    abbonamento.setData_scadenza(data_emissione);
+                    break;
+            }
 
             //GENERA UN CODICE UNIVOCO
             Long count = (Long) em.createQuery("SELECT COUNT (a) FROM Abbonamento a").getSingleResult();
@@ -119,4 +133,6 @@ public class AbbonamentiDAO {
 
         return query.getSingleResult();
     }
+
+
 }

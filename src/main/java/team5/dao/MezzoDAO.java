@@ -3,18 +3,18 @@ package team5.dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import team5.entities.Mezzo;
-import team5.entities.Tratta;
 import team5.exceptions.NotFoundException;
 
 import java.util.UUID;
 
 public class MezzoDAO {
     private final EntityManager em;
+
     public MezzoDAO(EntityManager em) {
         this.em = em;
     }
 
-    public void save(Mezzo nuovoMezzo){
+    public void save(Mezzo nuovoMezzo) {
         // 1.nuova transazione
         EntityTransaction transaction = em.getTransaction();
 
@@ -32,9 +32,15 @@ public class MezzoDAO {
 
     }
 
-    public Mezzo findbyID(String id_mezzo){
+    public Mezzo findbyID(String id_mezzo) {
         Mezzo found = em.find(Mezzo.class, UUID.fromString(id_mezzo));
         if (found == null) throw new NotFoundException(UUID.fromString(id_mezzo));
+        return found;
+    }
+
+    public Mezzo findbyCU(String codice_univoco) {
+        Mezzo found = em.find(Mezzo.class, codice_univoco);
+        if (found == null) throw new NotFoundException(found.getId_mezzo());
         return found;
     }
 
