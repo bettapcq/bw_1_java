@@ -39,12 +39,16 @@ public class Application {
         while (input != 0) {
             switch (input) {
                 case 1: {
+                    System.out.println("qui entra dentro il menu utente");
                     menu.menu_utente();
+                    input = 0;
                     break;
                 }
                 case 2: {
                     menu.menu_amministratore();
+                    input = 0;
                     break;
+
                 }
                 default: {
                     System.out.println("Per favore inserire uno dei numeri indicati nel menu'");
@@ -57,6 +61,7 @@ public class Application {
                 }
 
             }
+
 
         }
         System.out.println("Programma terminato");
