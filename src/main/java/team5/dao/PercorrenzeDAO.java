@@ -38,6 +38,13 @@ public class PercorrenzeDAO {
         return result;
     }
 
+    public List<Percorrenza> tuttiMezziPerUnaTratta(String id_tratta) {
+        Query query = em.createQuery("SELECT p FROM Percorrenza p WHERE p.tratta.id_tratta = :id_tratta");
+        query.setParameter("id_tratta", UUID.fromString(id_tratta));
+        List<Percorrenza> result = query.getResultList();
+        return result;
+    }
+
 
     public void findPercorrenzaByIdAndDelete(UUID id_percorrenza) {
         EntityTransaction transaction = em.getTransaction();

@@ -35,54 +35,102 @@ public class Menu {
     }
 
     public void menu_utente() {
+        int input = -1;
+
+
         System.out.println("Menu Utente:  ");
-        System.out.println("0. torna indietro");
+        System.out.println("0. Torna indietro");
         System.out.println("1. Tempo stimato per una tratta ");
         System.out.println("2. Verifica validità abbonamento ");
-        System.out.println("3. Rinnovo tessera ");
-        System.out.println("4. Quali mezzi passano per una tratta ");
+        System.out.println("3. Rinnova la tessera ");
+        System.out.println("4. Quali tratte percorre un mezzo");
+        System.out.println("5. Quali mezzi passano per una tratta");
 
-        int input = Integer.parseInt(scanner.nextLine());
 
-        switch (input) {
-            case 1: {
-                System.out.println("Inserici la tratta: ");
-                String tratta = scanner.nextLine();
-                Tratta found = trD.findbyID(tratta);
-                if (found != null) {
-                    System.out.println("La tratta ha un tempo previsto di percorrenza di : " + found.getTempo_previsto_minuti());
-                } else throw new NotFoundException(found.getId_tratta());
+        try {
+            System.out.println("Integer.parseInt(scanner.nextLine()");
+            input = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dovevi inserire un numero. Inizializzare nuovamente il menu' ");
+        }
 
-                break;
-            }
-            case 2: {
-                System.out.println("Inserici l'ID tessera: ");
-                String tessera = scanner.nextLine();
-                ab.checkValidityByTessera(tessera);
-                break;
-            }
-            case 3: {
-                System.out.println("Inserici l'ID della tessera che vuoi rinnovare: ");
-                String tessera = scanner.nextLine();
-                te.renewCard(tessera);
-                break;
-            }
+        while (input != 0) {
+            switch (input) {
+                case 1: {
+                    System.out.println("Inserici la tratta: ");
+                    String tratta = scanner.nextLine();
+                    try {
+                        Tratta found = trD.findbyID(tratta);
+                        if (found != null) {
+                            System.out.println("La tratta ha un tempo previsto di percorrenza di : " + found.getTempo_previsto_minuti());
+                            break;
+                        } else throw new NotFoundException(found.getId_tratta());
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire un ID valido ");
+                    }
+                    break;
+                }
+                case 2: {
+                    System.out.println("Inserici l'ID tessera: ");
+                    String tessera = scanner.nextLine();
+                    try {
+                        ab.checkValidityByTessera(tessera);
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire un ID valido ");
+                    }
+                    break;
+                }
+                case 3: {
+                    System.out.println("Inserici l'ID della tessera che vuoi rinnovare: ");
+                    String tessera = scanner.nextLine();
+                    try {
 
-            case 4: {
-                System.out.println("Inserici l'ID del mezzo: ");
-                String mezzo = scanner.nextLine();
-                List<Percorrenza> lista = pe.tutteLetratteDiUnMezzo(mezzo);
-                lista.forEach(percorrenza -> System.out.println(percorrenza));
-                break;
-            }
-            default: {
-                System.out.println("Inserisci un numero valido");
-                scanner.nextLine();
+                        te.renewCard(tessera);
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire un ID valido ");
+                    }
+                    break;
+
+                }
+
+                case 4: {
+                    System.out.println("Inserici l'ID del mezzo: ");
+                    String mezzo = scanner.nextLine();
+                    try {
+
+                        List<Percorrenza> lista = pe.tutteLetratteDiUnMezzo(mezzo);
+                        lista.forEach(percorrenza -> System.out.println(percorrenza));
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire un ID valido ");
+                    } finally {
+                        break;
+                    }
+                }
+
+                case 5: {
+                    System.out.println("Inserici l'ID della tratta: ");
+                    String tratta = scanner.nextLine();
+                    try {
+                        List<Percorrenza> lista = pe.tuttiMezziPerUnaTratta(tratta);
+                        lista.forEach(percorrenza -> System.out.println(percorrenza));
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire un ID valido ");
+                    }
+
+
+                }
+                default: {
+                    System.out.println("Inserisci un numero valido");
+                    scanner.nextLine();
+                    break;
+                }
             }
         }
+        System.out.println("menu chiuso!");
     }
 }
-
 
 //        Rivenditore rivenditore1 = new RivenditoreAutorizzato(394762938, "via da qua", LocalTime.now(), LocalTime.of(17, 0));
 //        Rivenditore rivenditore2 = new RivenditoreAutorizzato(394754938, "via di li", LocalTime.now(), LocalTime.of(17, 0));

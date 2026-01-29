@@ -26,12 +26,15 @@ public class Application {
         Menu menu = new Menu(em);
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Se sei un utente premi 1, se sei un amministratore premi 2. Per uscire premi 0: ");
+        System.out.println("benvenuto nel gestionale trasporti! ");
+        System.out.println("1. Menu utente");
+        System.out.println("2. Menu amministratore");
+        System.out.println("0. Logout");
         int input = 0;
         try {
             input = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
-            System.out.println("Dovevi inserire un numero. Iniziallizzare nuovamente il menu' ");
+            System.out.println("Dovevi inserire un numero. Inizializzare nuovamente il menu' ");
         }
         while (input != 0) {
             switch (input) {
