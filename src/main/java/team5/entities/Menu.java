@@ -1,12 +1,10 @@
 package team5.entities;
 
 import jakarta.persistence.EntityManager;
-import team5.dao.AbbonamentiDAO;
-import team5.dao.PercorrenzeDAO;
-import team5.dao.TessereDAO;
-import team5.dao.TrattaDAO;
+import team5.dao.*;
 import team5.exceptions.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,6 +17,8 @@ public class Menu {
     AbbonamentiDAO ab;
     TessereDAO te;
     PercorrenzeDAO pe;
+    RivenditoreDAO rv;
+    BigliettoDAO bt;
 
     public Menu(EntityManager em) {
         this.em = em;
@@ -26,13 +26,118 @@ public class Menu {
         this.ab = new AbbonamentiDAO(em);
         this.te = new TessereDAO(em);
         this.pe = new PercorrenzeDAO(em);
-
+        this.rv = new RivenditoreDAO(em);
+        this.bt = new BigliettoDAO(em);
     }
 
 
-    public static void menu_amministratore() {
+    public void menu_amministratore() {
+        int input = -1;
+        System.out.println("Menu Amministratore:  ");
+        System.out.println("0. Torna indietro");
+        System.out.println("1. Emissione biglietti ");
+        System.out.println("2. Emissione abbonamento ");
+        System.out.println("3. Numero biglietti vidimati su un mezzo ");
+        System.out.println("4. Biglietti emessi da un rivenditore");
+        System.out.println("5. Abbonamenti emessi da un rivenditore");
+        System.out.println("6. Numero di percorrenze e tempo medio");
+        System.out.println("7. Chiudere manutenzione di un mezzo");
+        System.out.println("8. Periodi manutenzione mezzo");
+        System.out.println("9. Percentuale di manutenzione");
+        System.out.println("10. Modificare vita di un mezzo");
 
+        try {
+            System.out.println("Integer.parseInt(scanner.nextLine()");
+            input = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dovevi inserire un numero. Inizializzare nuovamente il menu' ");
+        }
+
+        while (input != 0) {
+            switch (input) {
+                case 1: {
+                    System.out.println("Inserici il costo del biglietto: ");
+                    double costo = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Inserisci l'id del rivenditore");
+                    String id = scanner.nextLine();
+                    try {
+                        Rivenditore riv = rv.findById(id);
+                        bt.emissioneBiglietti(LocalDate.now(), costo, riv);
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire un ID valido ");
+                    }
+                    break;
+                }
+                case 2: {
+                    System.out.println("Inserici il costo dell'abbonamento: ");
+                    double costoAbb = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Inserisci la periodicità del tuo abbonamento: ");
+                    String period = scanner.nextLine();
+                    System.out.println("Inserisci l'id della tessera: ");
+                    String numTessera = scanner.nextLine();
+                    System.out.println("Inserisci l'id del rivenditore");
+                    String id = scanner.nextLine();
+                    try {
+                        Rivenditore riv = rv.findById(id);
+                        Tessera tes = te.getById(numTessera);
+                        LocalDate dataOggi = LocalDate.now();
+                        ab.emissioneAbbonamenti(dataOggi, costoAbb, Periodicita.valueOf(period.toUpperCase()), riv, tes);
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire un ID valido ");
+                    }
+                    break;
+                }
+                case 3: {
+                    System.out.println("Inserici l'ID della tessera che vuoi rinnovare: ");
+                    String tessera = scanner.nextLine();
+                    try {
+
+                        te.renewCard(tessera);
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire un ID valido ");
+                    }
+                    break;
+
+                }
+
+                case 4: {
+                    System.out.println("Inserici l'ID del mezzo: ");
+                    String mezzo = scanner.nextLine();
+                    try {
+
+                        List<Percorrenza> lista = pe.tutteLetratteDiUnMezzo(mezzo);
+                        lista.forEach(percorrenza -> System.out.println(percorrenza));
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire un ID valido ");
+                    } finally {
+                        break;
+                    }
+                }
+
+                case 5: {
+                    System.out.println("Inserici l'ID della tratta: ");
+                    String tratta = scanner.nextLine();
+                    try {
+                        List<Percorrenza> lista = pe.tuttiMezziPerUnaTratta(tratta);
+                        lista.forEach(percorrenza -> System.out.println(percorrenza));
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire un ID valido ");
+                    }
+
+
+                }
+                default: {
+                    System.out.println("Inserisci un numero valido");
+                    scanner.nextLine();
+                    break;
+                }
+            }
+        }
+        System.out.println("menu chiuso!");
     }
+
+
 
     public void menu_utente() {
         int input = -1;
@@ -131,6 +236,7 @@ public class Menu {
         System.out.println("menu chiuso!");
     }
 }
+
 
 //        Rivenditore rivenditore1 = new RivenditoreAutorizzato(394762938, "via da qua", LocalTime.now(), LocalTime.of(17, 0));
 //        Rivenditore rivenditore2 = new RivenditoreAutorizzato(394754938, "via di li", LocalTime.now(), LocalTime.of(17, 0));
