@@ -1,7 +1,9 @@
 package team5.entities;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import team5.dao.*;
+import team5.exceptions.AlreadyEndorsedTicket;
 import team5.exceptions.NotFoundException;
 
 import java.time.LocalDate;
@@ -48,9 +50,9 @@ public class Menu {
         System.out.println("5. Abbonamenti emessi da un rivenditore");
         System.out.println("6. Numero di percorrenze e tempo medio");
         System.out.println("7. Chiudere manutenzione di un mezzo");
-        System.out.println("8. Periodi manutenzione mezzo");
-        System.out.println("9. Percentuale di manutenzione");
-        System.out.println("10. Modificare vita di un mezzo");
+        System.out.println("8. Periodi manutenzione mezzo e calcolo della percentuale");
+        System.out.println("9. Modificare vita di un mezzo");
+        System.out.println("10.Numero biglietti vidimati da data");
         int input = 0;
         try {
             input = Integer.parseInt(scanner.nextLine());
@@ -109,12 +111,15 @@ public class Menu {
                 }
 
                 case 4: {
-                    System.out.println("Inserici l'ID del mezzo: ");
-                    String mezzo = scanner.nextLine();
+                    System.out.println("Inserici l'ID del rivenditore: ");
+                    String rivenditore_id = scanner.nextLine();
+                    System.out.println("Inserici la data di inizio (aaaa,mm,gg): ");
+                    LocalDate data_inizio = LocalDate.parse(scanner.nextLine());
+                    System.out.println("Inserici la data di fine (aaaa,mm,gg): ");
+                    LocalDate data_fine = LocalDate.parse(scanner.nextLine());
                     try {
-
-                        List<Percorrenza> lista = pe.tutteLetratteDiUnMezzo(mezzo);
-                        lista.forEach(percorrenza -> System.out.println(percorrenza));
+                        Rivenditore rivenditore = rv.findById(rivenditore_id);
+                        bt.numeroBigliettiEmessiPerRivenditoriEPerPeriodo (rivenditore,data_inizio,data_fine);
                     } catch (Exception e) {
                         System.out.println("Dovevi inserire un ID valido ");
                     } finally {
@@ -123,17 +128,95 @@ public class Menu {
                 }
 
                 case 5: {
-                    System.out.println("Inserici l'ID della tratta: ");
-                    String tratta = scanner.nextLine();
+                    System.out.println("Inserici l'ID del rivenditore: ");
+                    String rivenditore_iD = scanner.nextLine();
+                    System.out.println("Inserici la data di inizio (aaaa,mm,gg): ");
+                    LocalDate data_inizio_ = LocalDate.parse(scanner.nextLine());
+                    System.out.println("Inserici la data di fine (aaaa,mm,gg): ");
+                    LocalDate data_fine_ = LocalDate.parse(scanner.nextLine());
                     try {
-                        List<Percorrenza> lista = pe.tuttiMezziPerUnaTratta(tratta);
-                        lista.forEach(percorrenza -> System.out.println(percorrenza));
-                        break;
+                        Rivenditore rivenditore_ = rv.findById(rivenditore_iD);
+                        ab.numeroAbbonamentiEmessiPerRivenditoriEPerPeriodo(rivenditore_,data_inizio_,data_fine_);
                     } catch (Exception e) {
                         System.out.println("Dovevi inserire un ID valido ");
+                    } finally {
+                        break;
                     }
+                }
 
+                case 6: {
+                    System.out.println("Inserici l'ID della tratta: ");
+                    String tratta6 = scanner.nextLine();
+                    System.out.println("Inserici l'ID del mezzo: ");
+                    String mezzo6 = scanner.nextLine();
+                    try {
+                        pe.findNumeroPercorrenze(tratta6,mezzo6);
+                        pe.findTempoEffettivoPercorrenzaMedio(tratta6,mezzo6);
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire degli ID validi ");
+                    } finally {
+                        break;
+                    }
+                }
+                case 7: {
+                    System.out.println("Inserici l'ID della manutenzione: ");
+                    String manutenzione7_id = scanner.nextLine();
+                    try {
 
+                        // 1. Cerco lo studente
+                        Manutenzione manutenzione7 = ma.findbyID(manutenzione7_id);
+                        manutenzione7.setFine_manutenzione(LocalDate.now());
+                        // 2. Creo una nuova transazione
+                        EntityTransaction transaction = em.getTransaction();
+                        // 3. Faccio partire la transazione
+                        transaction.begin();
+                        // 4. Rimuovo dal Persistence Context l'oggetto in questione
+                        em.remove(manutenzione7);
+
+                        // 5. commit
+                        transaction.commit();
+
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire l'ID valido ");
+                    } finally {
+                        break;
+                    }
+                }
+                case 8: {
+                    System.out.println("Inserici l'ID della mezzo: ");
+                    String mezzo8_id = scanner.nextLine();
+                    try {
+                        Mezzo mezzo8 = me.findbyID(mezzo8_id);
+                        ma.periodiManutenzione(mezzo8_id);
+                        ma.getPercentualeManutenzioneMezzo(mezzo8);
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire l'ID valido ");
+                    } finally {
+                        break;
+                    }
+                }
+                case 9: {
+                    System.out.println("Inserici l'ID della mezzo: ");
+                    String mezzo9_id = scanner.nextLine();
+                    try {
+                        Mezzo mezzo9 = me.findbyID(mezzo9_id);
+
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire l'ID valido ");
+                    } finally {
+                        break;
+                    }
+                }
+                case 10: {
+                    System.out.println("Inserici la data di inizio (aaaa,mm,gg): ");
+                    LocalDate data_inizio_ = LocalDate.parse(scanner.nextLine());
+                    try {
+                        bt.numeroBigliettiVidimatiDaData(data_inizio_);
+                    } catch (Exception e) {
+                        System.out.println("Dovevi inserire l'ID valido ");
+                    } finally {
+                        break;
+                    }
                 }
                 default: {
                     System.out.println("Inserisci un numero valido");
@@ -150,9 +233,9 @@ public class Menu {
             System.out.println("5. Abbonamenti emessi da un rivenditore");
             System.out.println("6. Numero di percorrenze e tempo medio");
             System.out.println("7. Chiudere manutenzione di un mezzo");
-            System.out.println("8. Periodi manutenzione mezzo");
-            System.out.println("9. Percentuale di manutenzione");
-            System.out.println("10. Modificare vita di un mezzo");
+            System.out.println("8. Periodi manutenzione mezzo e calcolo della percentuale");
+            System.out.println("9. Modificare vita di un mezzo");
+            System.out.println("10.Numero biglietti vidimati da data");
             input = 0;
             try {
                 input = Integer.parseInt(scanner.nextLine());
@@ -252,8 +335,14 @@ public class Menu {
                     String biglietto = scanner.nextLine();
                     System.out.println("Inserici l'ID del mezzo: ");
                     String id_mezzo = scanner.nextLine();
-                    Mezzo mezzo = me.findbyCU(id_mezzo);
-                    bt.vidimazioneBiglietto(biglietto, mezzo);
+                    Mezzo mezzo = me.findbyID(id_mezzo);
+                    try {
+                        bt.vidimazioneBiglietto(biglietto, mezzo);
+                    }
+                    catch (AlreadyEndorsedTicket e){
+                        System.out.println("questo biglietto è già stato vidimato, non fare il furbo bastardo");
+                    }
+                    break;
                 }
                 default: {
                     System.out.println("Inserisci un numero valido");
@@ -269,10 +358,10 @@ public class Menu {
             System.out.println("3. Rinnova la tessera ");
             System.out.println("4. Quali tratte percorre un mezzo");
             System.out.println("5. Quali mezzi passano per una tratta");
+            System.out.println("6. Vidima biglietto");
 
             input = 0;
             try {
-                System.out.println("Integer.parseInt(scanner.nextLine()");
                 input = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
                 System.out.println("Dovevi inserire un numero. Inizializzare nuovamente il menu' ");

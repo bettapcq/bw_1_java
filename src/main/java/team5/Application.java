@@ -48,7 +48,6 @@ public class Application {
                     menu.menu_amministratore();
                     input = 0;
                     break;
-
                 }
                 default: {
                     System.out.println("Per favore inserire uno dei numeri indicati nel menu'");
