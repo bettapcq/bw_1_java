@@ -69,7 +69,7 @@ public class AbbonamentiDAO {
                 .setParameter("idTessera", UUID.fromString(idTessera))
                 .getSingleResult();
         if (found != null) {
-            if (found.getData_scadenza().isAfter(LocalDate.now())) {
+            if (found.getData_scadenza().isBefore(LocalDate.now())) {
                 System.out.println("L'abbonamento n° " + found.getCodice_univoco() + " è scaduto!");
             } else {
                 System.out.println("L'abbonamento n° " + found.getCodice_univoco() + " è attivo e scadrà il giorno: " + found.getData_scadenza());

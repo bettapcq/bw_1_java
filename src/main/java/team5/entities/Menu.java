@@ -2,6 +2,7 @@ package team5.entities;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 import team5.dao.*;
 import team5.exceptions.AlreadyEndorsedTicket;
 import team5.exceptions.NotFoundException;
@@ -9,10 +10,10 @@ import team5.exceptions.NotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 
 public class Menu {
-
 
     static Scanner scanner = new Scanner(System.in);
     public EntityManager em;
@@ -65,7 +66,7 @@ public class Menu {
             switch (input) {
                 case 1: {
                     System.out.println("Inserici il costo del biglietto: ");
-                    double costo = Integer.parseInt(scanner.nextLine());
+                    double costo = Double.parseDouble(scanner.nextLine());
                     System.out.println("Inserisci l'id del rivenditore");
                     String id = scanner.nextLine();
                     try {
@@ -162,22 +163,19 @@ public class Menu {
                 case 7: {
                     System.out.println("Inserici l'ID della manutenzione: ");
                     String manutenzione7_id = scanner.nextLine();
+                    System.out.println("Inserici la data di fine manutenzione: ");
+                    LocalDate data_fine7 = LocalDate.parse(scanner.nextLine());
                     try {
-
-                        Manutenzione manutenzione7 = ma.findbyID(manutenzione7_id);
-                        manutenzione7.setFine_manutenzione(LocalDate.now());
-                        // 2. Creo una nuova transazione
-                        EntityTransaction transaction = em.getTransaction();
-                        // 3. Faccio partire la transazione
-                        transaction.begin();
-                        // 4. Rimuovo dal Persistence Context l'oggetto in questione
-                        em.remove(manutenzione7);
-
-                        // 5. commit
-                        transaction.commit();
-
+                        EntityTransaction t = em.getTransaction();
+                        t.begin();
+                        Query query = em.createQuery("UPDATE Manutenzione m SET m.fine_manutenzione=:data_fine7 WHERE m.id_manutenzione=:manutenzione7_id");
+                        query.setParameter("manutenzione7_id", UUID.fromString(manutenzione7_id));
+                        query.setParameter("data_fine7",data_fine7);
+                        query.executeUpdate();
+                        t.commit();
+                        System.out.println("La data di fine manutenzione e' stata aggiornata a " + data_fine7);
                     } catch (Exception e) {
-                        System.out.println("Dovevi inserire l'ID valido ");
+                        System.out.println("Dovevi inserire l'ID valido ed una data di fine manutenzione valida ");
                     } finally {
                         break;
                     }
@@ -196,13 +194,21 @@ public class Menu {
                     }
                 }
                 case 9: {
-                    System.out.println("Inserici l'ID della mezzo: ");
+                    System.out.println("Inserici l'ID di un mezzo: ");
                     String mezzo9_id = scanner.nextLine();
+                    System.out.println("Inserici la data di fine attività: ");
+                    LocalDate data_fine8 = LocalDate.parse(scanner.nextLine());
                     try {
-                        Mezzo mezzo9 = me.findbyID(mezzo9_id);
-
+                        EntityTransaction t = em.getTransaction();
+                        t.begin();
+                        Query query = em.createQuery("UPDATE Mezzo me SET me.fine_attivita = :data_fine8 WHERE me.id_mezzo=:mezzo9_id");
+                        query.setParameter("mezzo9_id", UUID.fromString(mezzo9_id));
+                        query.setParameter("data_fine8",data_fine8);
+                        query.executeUpdate();
+                        t.commit();
+                        System.out.println("La data di fine attività e' stata aggiunta a " + data_fine8);
                     } catch (Exception e) {
-                        System.out.println("Dovevi inserire l'ID valido ");
+                        System.out.println("Dovevi inserire l'ID valido ed una data di fine manutenzione valida ");
                     } finally {
                         break;
                     }
@@ -375,94 +381,6 @@ public class Menu {
 }
 
 
-//        Rivenditore rivenditore1 = new RivenditoreAutorizzato(394762938, "via da qua", LocalTime.now(), LocalTime.of(17, 0));
-//        Rivenditore rivenditore2 = new RivenditoreAutorizzato(394754938, "via di li", LocalTime.now(), LocalTime.of(17, 0));
-//        Rivenditore rivenditore3 = new DistributtoreAutomatico("Via di la", Stato.ATTIVO);
-//        Rivenditore rivenditore4 = new DistributtoreAutomatico("Via per di qua", Stato.NON_ATTIVO);
-//        Biglietto biglietto1 = new Biglietto(LocalDate.of(2026, 10, 10), 11.00, "b143", rivenditore1);
-//        Biglietto biglietto2 = new Biglietto(LocalDate.now(), 10.00, "b643", rivenditore2);
-//        Biglietto biglietto3 = new Biglietto(LocalDate.now(), 10.00, "b743", rivenditore3);
-//        Biglietto biglietto4 = new Biglietto(LocalDate.now(), 10.00, "b843", rivenditore3);
-//
-//        Rivenditore rivenditore4DB = r.findById("495a8da2-c7e8-409c-97b7-141e8e87ff77");
-
-//       Biglietto biglietto5 = new Biglietto(LocalDate.of(2025, 3, 4), 10.00, "b943", rivenditore4DB);
-//        Biglietto biglietto6 = new Biglietto(LocalDate.of(2025, 7, 11), 10.00, "b944", rivenditore4DB);
-//
-//        System.out.println("Hello World!1 ");
-
-//        r.save(rivenditore1);
-//        b.save(biglietto1);
-//        r.save(rivenditore2);
-//        b.save(biglietto2);
-//        r.save(rivenditore3);
-//        b.save(biglietto3);
-//        b.save(biglietto4);
-//        r.save(rivenditore4);
-//        b.save(biglietto5);
-//        b.save(biglietto6);
-//
-//        Utente utente1 = new Utente("Giacomo", "Poretti", LocalDate.of(1992, 06, 14));
-//        Utente utente2 = new Utente("Aldo", "Baglio", LocalDate.of(1982, 07, 19));
-//
-//        Tessera tessera1 = new Tessera(LocalDate.now(), utente1);
-//        Tessera tessera2 = new Tessera(LocalDate.of(2026, 01, 27), utente2);
-//
-//        u.save(utente1);
-//        u.save(utente2);
-//        t.save(tessera1);
-//        t.save(tessera2);
-
-//        Rivenditore rivenditore1DB = r.findById("191ca50f-b8ca-4a16-aedd-5111657664b0");
-//        Rivenditore rivenditore3DB = r.findById("8d397b00-4433-443b-9a3e-27f0040633ac");
-//        Tessera tessera1DB = t.getById("6eb6ab54-119b-4434-b789-32d31ae7ef82");
-//        Tessera tessera2DB = t.getById("b08a2cde-44b6-4dd7-99c2-ece889be8b5a");
-//
-//        Abbonamento abbonamento1 = new Abbonamento(LocalDate.now(), 50.00, "a234", Periodicita.SETTIMANALE, rivenditore1DB, tessera1DB);
-//        Abbonamento abbonamento2 = new Abbonamento(LocalDate.of(2026, 2, 28), 120.00, "a237", Periodicita.MENSILE, rivenditore3DB, tessera2DB);
-//
-//        a.save(abbonamento1);
-//        a.save(abbonamento2);
-//
-//        Mezzo mezzo1 = new Mezzo(40, LocalDate.of(2025, 01, 01), null, TipoMezzo.AUTOBUS);
-//        Mezzo mezzo2 = new Mezzo(50, LocalDate.of(2024, 01, 01), null, TipoMezzo.TRAM);
-//        Mezzo mezzo3 = new Mezzo(50, LocalDate.of(2022, 01, 01), LocalDate.of(2026, 01, 01), TipoMezzo.TRAM);
-//
-//        m.save(mezzo1);
-//        m.save(mezzo2);
-//        m.save(mezzo3);
-
-//        Mezzo mezzo1DB = m.findbyID("b0f92df1-f381-4082-87c5-e1e3bcfc8b07");
-//        Mezzo mezzo3DB = m.findbyID("47c59e83-cc96-4a4e-bede-e0a9b9daecc5");
-//        Mezzo mezzo2DB = m.findbyID("88e93e09-ef12-45e8-a644-98640b28426d");
-/// /
-//        Manutenzione manutenzione1 = new Manutenzione(LocalDate.of(2026, 1, 7), LocalDate.of(2026, 1, 20), mezzo1DB, Tipologia.CARROZZERIA);
-//        Manutenzione manutenzione2 = new Manutenzione(LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 17), mezzo3DB, Tipologia.MOTORE);
-//        Manutenzione manutenzione3 = new Manutenzione(LocalDate.of(2026, 1, 27), LocalDate.of(2026, 1, 28), mezzo3DB, Tipologia.CARROZZERIA);
-//        Manutenzione manutenzione4 = new Manutenzione(LocalDate.of(2023, 1, 27), LocalDate.of(2023, 1, 28), mezzo2DB, Tipologia.FRENI);
-//        Manutenzione manutenzione5 = new Manutenzione(LocalDate.of(2026, 1, 27), LocalDate.now(), mezzo3DB, Tipologia.FRENI);
-//
-//        md.save(manutenzione1);
-//        md.save(manutenzione2);
-//        md.save(manutenzione3);
-//        md.save(manutenzione4);
-//
-//        Tratta tratta1 = new Tratta(30, "via per di qua", "via qua", 60);
-//        Tratta tratta2 = new Tratta(15, "via per di si", "via la", 30);
-//
-//        tr.save(tratta1);
-//        tr.save(tratta2);
-
-//        Tratta tratta1DB = tr.findbyID("40d5bfdc-c252-4e97-9532-4a67fb334bac");
-//        Tratta tratta2DB = tr.findbyID("4d6ed740-bc2e-4a0c-8bb7-736b551bafdd");
-//
-//        Percorrenza percorrenza1 = new Percorrenza(mezzo1DB, tratta1DB, 40);
-//        Percorrenza percorrenza2 = new Percorrenza(mezzo2DB, tratta2DB, 40);
-//        Percorrenza percorrenza3 = new Percorrenza(mezzo1DB, tratta2DB, 40);
-//
-//        p.savePerc(percorrenza1);
-//        p.savePerc(percorrenza2);
-//        p.savePerc(percorrenza3);
 
 // TEST METODI:
 //1)vidimazione:
