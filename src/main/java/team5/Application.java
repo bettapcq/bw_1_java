@@ -28,44 +28,44 @@ public class Application {
         Menu menu = new Menu(em);
 
         Scanner scanner = new Scanner(System.in);
-//        System.out.println("benvenuto nel gestionale trasporti! ");
-//        System.out.println("1. Menu utente");
-//        System.out.println("2. Menu amministratore");
-//        System.out.println("0. Logout");
-//        int input = 0;
-//        try {
-//            input = Integer.parseInt(scanner.nextLine());
-//        } catch (NumberFormatException e) {
-//            System.out.println("Dovevi inserire un numero. Inizializzare nuovamente il menu' ");
-//        }
-//        while (input != 0) {
-//            switch (input) {
-//                case 1: {
-//                    System.out.println("qui entra dentro il menu utente");
-//                    menu.menu_utente();
-//                    input = 0;
-//                    break;
-//                }
-//                case 2: {
-//                    menu.menu_amministratore();
-//                    input = 0;
-//                    break;
-//                }
-//                default: {
-//                    System.out.println("Per favore inserire uno dei numeri indicati nel menu'");
-//                    try {
-//                        input = Integer.parseInt(scanner.nextLine());
-//                    } catch (NumberFormatException e) {
-//                        System.out.println("Dovevi inserire un numero ");
-//                    }
-//                    break;
-//                }
-//
-//            }
-//
-//
-//        }
-//        System.out.println("Programma terminato");
+        System.out.println("benvenuto nel gestionale trasporti! ");
+        System.out.println("1. Menu utente");
+        System.out.println("2. Menu amministratore");
+        System.out.println("0. Logout");
+        int input = 0;
+        try {
+            input = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Dovevi inserire un numero. Inizializzare nuovamente il menu' ");
+        }
+        while (input != 0) {
+            switch (input) {
+                case 1: {
+                    System.out.println("qui entra dentro il menu utente");
+                    menu.menu_utente();
+                    input = 0;
+                    break;
+                }
+                case 2: {
+                    menu.menu_amministratore();
+                    input = 0;
+                    break;
+                }
+                default: {
+                    System.out.println("Per favore inserire uno dei numeri indicati nel menu'");
+                    try {
+                        input = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Dovevi inserire un numero ");
+                    }
+                    break;
+                }
+
+            }
+
+
+        }
+        System.out.println("Programma terminato");
 
 //        Rivenditore rivenditore1 = new RivenditoreAutorizzato(394762938, "via da qua", LocalTime.now(), LocalTime.of(17, 0));
 //        Rivenditore rivenditore2 = new RivenditoreAutorizzato(394754938, "via di li", LocalTime.now(), LocalTime.of(17, 0));
