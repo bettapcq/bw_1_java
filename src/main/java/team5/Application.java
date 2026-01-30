@@ -28,7 +28,7 @@ public class Application {
         Menu menu = new Menu(em);
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println("benvenuto nel gestionale trasporti! ");
+        System.out.println("Benvenuto nel gestionale trasporti del TEAM 5! ");
         System.out.println("1. Menu utente");
         System.out.println("2. Menu amministratore");
         System.out.println("0. Logout");
@@ -203,20 +203,25 @@ public class Application {
 //        Tratta tratta4DB = tr.findbyID("06aa9cf8-260f-415c-860f-68cfaeb93e7a");
 //        Tratta tratta5DB = tr.findbyID("52203de1-0039-4e8c-8222-28339cf4276f");
 //        Tratta tratta6DB = tr.findbyID("e017bf21-f0d5-403c-917a-972a87c5932d");
-//
 //        Percorrenza percorrenza1 = new Percorrenza(mezzo1DB, tratta1DB, 40);
 //        Percorrenza percorrenza2 = new Percorrenza(mezzo2DB, tratta2DB, 40);
 //        Percorrenza percorrenza3 = new Percorrenza(mezzo3DB, tratta3DB, 30);
 //        Percorrenza percorrenza4 = new Percorrenza(mezzo4DB, tratta4DB, 20);
 //        Percorrenza percorrenza5 = new Percorrenza(mezzo5DB, tratta5DB, 45);
 //        Percorrenza percorrenza6 = new Percorrenza(mezzo6DB, tratta6DB, 60);
-//
+//        Percorrenza percorrenza7 = new Percorrenza(mezzo6DB, tratta6DB, 60);
+//                Percorrenza percorrenza8 = new Percorrenza(mezzo1DB, tratta6DB, 60);
+//                Percorrenza percorrenza9 = new Percorrenza(mezzo4DB, tratta6DB, 60);
+
 //        p.savePerc(percorrenza1);
 //        p.savePerc(percorrenza2);
 //        p.savePerc(percorrenza3);
 //        p.savePerc(percorrenza4);
 //        p.savePerc(percorrenza5);
-//        p.savePerc(percorrenza6);
+////        p.savePerc(percorrenza6);
+//                p.savePerc(percorrenza7);
+//        p.savePerc(percorrenza8);
+//                p.savePerc(percorrenza9);
 
         scanner.close();
         em.close();
