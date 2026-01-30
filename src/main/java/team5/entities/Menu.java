@@ -66,7 +66,7 @@ public class Menu {
             switch (input) {
                 case 1: {
                     System.out.println("Inserici il costo del biglietto: ");
-                    double costo = Integer.parseInt(scanner.nextLine());
+                    double costo = Double.parseDouble(scanner.nextLine());
                     System.out.println("Inserisci l'id del rivenditore");
                     String id = scanner.nextLine();
                     try {
