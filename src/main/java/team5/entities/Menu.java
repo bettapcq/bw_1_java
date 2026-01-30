@@ -2,6 +2,7 @@ package team5.entities;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 import team5.dao.*;
 import team5.exceptions.AlreadyEndorsedTicket;
 import team5.exceptions.NotFoundException;
@@ -9,6 +10,7 @@ import team5.exceptions.NotFoundException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 
 public class Menu {
@@ -161,23 +163,19 @@ public class Menu {
                 case 7: {
                     System.out.println("Inserici l'ID della manutenzione: ");
                     String manutenzione7_id = scanner.nextLine();
+                    System.out.println("Inserici la data di fine manutenzione: ");
+                    LocalDate data_fine7 = LocalDate.parse(scanner.nextLine());
                     try {
-
-                        // 1. Cerco lo studente
-                        Manutenzione manutenzione7 = ma.findbyID(manutenzione7_id);
-                        manutenzione7.setFine_manutenzione(LocalDate.now());
-                        // 2. Creo una nuova transazione
-                        EntityTransaction transaction = em.getTransaction();
-                        // 3. Faccio partire la transazione
-                        transaction.begin();
-                        // 4. Rimuovo dal Persistence Context l'oggetto in questione
-                        em.remove(manutenzione7);
-
-                        // 5. commit
-                        transaction.commit();
-
+                        EntityTransaction t = em.getTransaction();
+                        t.begin();
+                        Query query = em.createQuery("UPDATE Manutenzione m SET m.fine_manutenzione=:data_fine7 WHERE m.id_manutenzione=:manutenzione7_id");
+                        query.setParameter("manutenzione7_id", UUID.fromString(manutenzione7_id));
+                        query.setParameter("data_fine7",data_fine7);
+                        query.executeUpdate();
+                        t.commit();
+                        System.out.println("La data di fine manutenzione e' stata aggiornata a " + data_fine7);
                     } catch (Exception e) {
-                        System.out.println("Dovevi inserire l'ID valido ");
+                        System.out.println("Dovevi inserire l'ID valido ed una data di fine manutenzione valida ");
                     } finally {
                         break;
                     }
