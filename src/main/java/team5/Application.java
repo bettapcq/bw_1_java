@@ -42,7 +42,6 @@ public class Application {
         while (input != 0) {
             switch (input) {
                 case 1: {
-                    System.out.println("qui entra dentro il menu utente");
                     menu.menu_utente();
                     input = 0;
                     break;
