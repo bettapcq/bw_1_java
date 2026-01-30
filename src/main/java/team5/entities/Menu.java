@@ -164,7 +164,6 @@ public class Menu {
                     String manutenzione7_id = scanner.nextLine();
                     try {
 
-                        // 1. Cerco lo studente
                         Manutenzione manutenzione7 = ma.findbyID(manutenzione7_id);
                         manutenzione7.setFine_manutenzione(LocalDate.now());
                         // 2. Creo una nuova transazione
