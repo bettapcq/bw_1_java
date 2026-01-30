@@ -1,7 +1,10 @@
 package team5.entities;
 
 import jakarta.persistence.*;
+import team5.exceptions.MezzoInManutenzioneException;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -26,7 +29,12 @@ public class Percorrenza {
     }
 
     public Percorrenza(Mezzo mezzo, Tratta tratta, int tempo_effettivo_minuti) {
-        this.mezzo = mezzo;
+        List<Manutenzione> date_fine_manutenzioni = mezzo.manutenzioni.stream().filter(manutenzione -> manutenzione.getFine_manutenzione().isAfter(LocalDate.now())).toList();
+        if (date_fine_manutenzioni.isEmpty()){
+            this.mezzo = mezzo;
+        }else {
+            throw new MezzoInManutenzioneException("Il mezzo è in manutenzione");
+        }
         this.tratta = tratta;
         this.tempo_effettivo_minuti = tempo_effettivo_minuti;
     }

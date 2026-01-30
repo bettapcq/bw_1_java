@@ -23,15 +23,17 @@ public class Mezzo {
     @Enumerated(EnumType.STRING)
     @Column(name="tipoMezzo")
     private TipoMezzo tipoMezzo;
-
+    @OneToMany(mappedBy = "mezzo_in_manutenzione")
+    protected List<Manutenzione> manutenzioni = new ArrayList<>();
     public Mezzo() {
     }
 
-    public Mezzo(int capienza,  LocalDate inizio_attivita, LocalDate fine_attivita, TipoMezzo tipoMezzo) {
-        this.capienza = capienza;
+    public Mezzo( LocalDate inizio_attivita, LocalDate fine_attivita, TipoMezzo tipoMezzo) {
+
         this.fine_attivita = fine_attivita;
         this.inizio_attivita = inizio_attivita;
         this.tipoMezzo = tipoMezzo;
+        this.capienza = (tipoMezzo ==  TipoMezzo.AUTOBUS)? 60 : 45;
     }
 
     public int getCapienza() {

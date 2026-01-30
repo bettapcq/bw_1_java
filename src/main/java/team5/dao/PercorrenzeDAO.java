@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
 import team5.entities.Percorrenza;
+import team5.exceptions.MezzoInManutenzioneException;
 import team5.exceptions.NotFoundException;
 
 import java.util.List;
@@ -20,9 +21,11 @@ public class PercorrenzeDAO {
     public void savePerc(Percorrenza newPercorrenza) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        em.persist(newPercorrenza);
-        transaction.commit();
-        System.out.println("la percorrenza con id: " + newPercorrenza.getId_percorrenza() + " è stata salvata correttamente");
+
+            em.persist(newPercorrenza);
+            transaction.commit();
+            System.out.println("la percorrenza con id: " + newPercorrenza.getId_percorrenza() + " è stata salvata correttamente");
+
     }
 
     public Percorrenza findByIdPercorrenza(UUID idpercorrenza) {

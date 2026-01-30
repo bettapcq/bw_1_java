@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import team5.dao.*;
 import team5.entities.*;
+import team5.exceptions.MezzoInManutenzioneException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -147,13 +148,14 @@ public class Application {
 //        a.save(abbonamento3);
 //        a.save(abbonamento4);
 //
-//        Mezzo mezzo1 = new Mezzo(40, LocalDate.of(2025, 01, 01), null, TipoMezzo.AUTOBUS);
-//        Mezzo mezzo2 = new Mezzo(50, LocalDate.of(2024, 01, 01), null, TipoMezzo.TRAM);
-//        Mezzo mezzo3 = new Mezzo(50, LocalDate.of(2022, 01, 01), LocalDate.of(2026, 01, 01), TipoMezzo.TRAM);
-//        Mezzo mezzo4 = new Mezzo(30, LocalDate.of(2026, 01, 17), null, TipoMezzo.AUTOBUS);
-//        Mezzo mezzo5 = new Mezzo(60, LocalDate.of(2024, 03, 01), null, TipoMezzo.TRAM);
-//        Mezzo mezzo6 = new Mezzo(55, LocalDate.of(2020, 01, 01), LocalDate.of(2025, 01, 01), TipoMezzo.AUTOBUS);
-//
+//        Mezzo mezzo1 = new Mezzo( LocalDate.of(2025, 01, 01), null, TipoMezzo.AUTOBUS);
+//        Mezzo mezzo2 = new Mezzo( LocalDate.of(2024, 01, 01), null, TipoMezzo.TRAM);
+//        Mezzo mezzo3 = new Mezzo( LocalDate.of(2022, 01, 01), LocalDate.of(2026, 01, 01), TipoMezzo.TRAM);
+//        Mezzo mezzo4 = new Mezzo( LocalDate.of(2026, 01, 17), null, TipoMezzo.AUTOBUS);
+//        Mezzo mezzo5 = new Mezzo( LocalDate.of(2024, 03, 01), null, TipoMezzo.TRAM);
+//        Mezzo mezzo6 = new Mezzo( LocalDate.of(2020, 01, 01), LocalDate.of(2025, 01, 01), TipoMezzo.AUTOBUS);
+//        Mezzo mezzo7 = new Mezzo( LocalDate.of(2020, 01, 01), LocalDate.of(2025, 01, 01), TipoMezzo.AUTOBUS);
+//        m.save(mezzo7);
 //        m.save(mezzo1);
 //        m.save(mezzo2);
 //        m.save(mezzo3);
@@ -210,18 +212,24 @@ public class Application {
 //        Percorrenza percorrenza5 = new Percorrenza(mezzo5DB, tratta5DB, 45);
 //        Percorrenza percorrenza6 = new Percorrenza(mezzo6DB, tratta6DB, 60);
 //        Percorrenza percorrenza7 = new Percorrenza(mezzo6DB, tratta6DB, 60);
-//                Percorrenza percorrenza8 = new Percorrenza(mezzo1DB, tratta6DB, 60);
+//         Percorrenza percorrenza8 = new Percorrenza(mezzo1DB, tratta6DB, 60);
 //                Percorrenza percorrenza9 = new Percorrenza(mezzo4DB, tratta6DB, 60);
+//        Percorrenza percorrenza10 = new Percorrenza(mezzo5DB, tratta6DB, 60);
 
 //        p.savePerc(percorrenza1);
 //        p.savePerc(percorrenza2);
 //        p.savePerc(percorrenza3);
 //        p.savePerc(percorrenza4);
 //        p.savePerc(percorrenza5);
-////        p.savePerc(percorrenza6);
+//        p.savePerc(percorrenza6);
 //                p.savePerc(percorrenza7);
 //        p.savePerc(percorrenza8);
 //                p.savePerc(percorrenza9);
+ //       try {
+//            p.savePerc(percorrenza10);
+//        }catch (MezzoInManutenzioneException e){
+//            System.out.println("ciao");
+//        }
 
         scanner.close();
         em.close();
